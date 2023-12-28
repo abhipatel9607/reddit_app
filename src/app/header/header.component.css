@@ -70,3 +70,52 @@
   width: 40px;
   border-radius: 4px;
 }
+
+.create-subraddit-popup-box {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  width: 600px;
+  transform: translate(-50%, -50%);
+  background-color: #fdfdfd;
+  border-radius: 4px;
+  padding: 30px 36px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.create-subraddit-popup-box h4 {
+  margin-bottom: 20px;
+}
+
+.name {
+  margin-bottom: 4px;
+}
+
+.text-red {
+  color: red !important;
+  margin-bottom: 0;
+  width: 55%;
+  line-height: normal;
+}
+
+.create-subraddit-popup-box input {
+  border: 1px solid gray;
+}
+
+.x-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-weight: bold;
+}
+
+.btn-err-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.dropdownLevel-box {
+  width: 150px;
+}

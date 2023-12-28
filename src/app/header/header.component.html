@@ -2,18 +2,24 @@
   <div class="toolbar" role="banner">
     <img width="120" alt="Reddit Logo" src="assets/reddit_logo.png" />
     <img width="40" alt="Home Logo" src="assets/home_icon.png" />
-    <div ngbDropdown class="d-inline-block">
+    <div ngbDropdown class="d-inline-block dropdownLevel-box">
       <button
         class="btn btn-primary bg-white text-black border border-gray-300"
         id="dropdownMenuButton"
         ngbDropdownToggle
       >
-        Selected Subreddit
+        {{ selectedCommunity }}
       </button>
       <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-        <button ngbDropdownItem>SubRaddit 01</button>
-        <button ngbDropdownItem>SubRaddit 02</button>
-        <button ngbDropdownItem>SubRaddit 03</button>
+        <button
+          ngbDropdownItem
+          *ngFor="let subreddit of subreddits"
+          (click)="click(subreddit.name)"
+        >
+          {{ subreddit.name }}
+        </button>
+        <!-- <button ngbDropdownItem>SubRaddit 02</button>
+        <button ngbDropdownItem>SubRaddit 03</button> -->
       </div>
     </div>
 
@@ -44,12 +50,46 @@
   </ng-container>
   <ng-template #userDetails>
     <div class="auth-context">
-      <button class="btn">CREATE A SUBRADDIT</button>
+      <button class="btn" (click)="showCreateCommunityPopup = true">
+        CREATE A SUBRADDIT
+      </button>
       <div class="profile-box">
-        <img class="profile-img" [src]="user.photoURL" alt="Profile Image" />
+        <img class="profile-img" [src]="user.photoURL" alt="Img" />
         <span>{{ user.displayName }}</span>
         <button class="btn" (click)="userLogout()">LOGOUT</button>
       </div>
     </div>
   </ng-template>
+</div>
+
+<div class="create-subraddit-popup-box" *ngIf="showCreateCommunityPopup">
+  <h4>Create a Community</h4>
+  <div class="form-group">
+    <label class="name" for="exampleInputEmail1">Name</label>
+    <input
+      type="email"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      [(ngModel)]="communityInput"
+    />
+  </div>
+  <div class="btn-err-box">
+    <button
+      class="btn create-community-btn"
+      placeholder="Enter email"
+      (click)="createCommunity()"
+    >
+      CREATE COMMUNITY
+    </button>
+    <p class="text-red" *ngIf="errText">{{ errText }}</p>
+    <!-- <small
+      id="emailHelp"
+      class="form-text text-muted text-red"
+      *ngIf="errText"
+      >{{ errText }}</small
+    > -->
+  </div>
+
+  <i class="x-icon bi bi-x-lg" (click)="closeCreateCommunityPopup()"></i>
 </div>

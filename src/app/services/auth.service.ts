@@ -4,6 +4,7 @@ import {
   getAuth,
   signInWithRedirect,
   signOut,
+  signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
   User,
@@ -27,7 +28,7 @@ export class AuthService {
   async login() {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithRedirect(this.auth, provider);
+      await signInWithPopup(this.auth, provider);
     } catch (error) {
       console.log(error);
     }
