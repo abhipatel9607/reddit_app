@@ -1,0 +1,55 @@
+<div class="header">
+  <div class="toolbar" role="banner">
+    <img width="120" alt="Reddit Logo" src="assets/reddit_logo.png" />
+    <img width="40" alt="Home Logo" src="assets/home_icon.png" />
+    <div ngbDropdown class="d-inline-block">
+      <button
+        class="btn btn-primary bg-white text-black border border-gray-300"
+        id="dropdownMenuButton"
+        ngbDropdownToggle
+      >
+        Selected Subreddit
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+        <button ngbDropdownItem>SubRaddit 01</button>
+        <button ngbDropdownItem>SubRaddit 02</button>
+        <button ngbDropdownItem>SubRaddit 03</button>
+      </div>
+    </div>
+
+    <div class="search-container">
+      <form class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text border-0">
+            <i class="bi bi-search"></i>
+          </span>
+        </div>
+        <input
+          class="form-control form-control-sm border-0 w-75"
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+          mdbInput
+        />
+      </form>
+    </div>
+  </div>
+  <ng-container *ngIf="!user; else userDetails">
+    <div class="auth-context">
+      <div class="login-box btn">
+        <i class="bi bi-person-fill"></i>
+        <button type="button" (click)="userLogin()">LOGIN</button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #userDetails>
+    <div class="auth-context">
+      <button class="btn">CREATE A SUBRADDIT</button>
+      <div class="profile-box">
+        <img class="profile-img" [src]="user.photoURL" alt="Profile Image" />
+        <span>{{ user.displayName }}</span>
+        <button class="btn" (click)="userLogout()">LOGOUT</button>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,72 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+}
+.toolbar {
+  height: 80px;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+}
+.auth-context {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.toolbar img {
+  margin-right: 24px;
+  cursor: pointer;
+}
+
+.search-container {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+  padding: 2px 0;
+}
+
+.search-container:hover {
+  border-color: #007bff;
+}
+
+.search-container:focus-within {
+  border-color: #007bff;
+}
+
+.btn {
+  background-color: #ff4500;
+  color: #ffffff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn i {
+  color: #ffffff;
+  margin-right: 8px;
+}
+.btn button {
+  background-color: #ff4500;
+  border: none;
+  color: #ffffff;
+}
+
+.btn:active {
+  background-color: #ff4500;
+  color: #ffffff;
+}
+
+.profile-img {
+  width: 40px;
+  border-radius: 4px;
+}
