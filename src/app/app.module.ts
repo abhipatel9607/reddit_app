@@ -7,11 +7,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
+import { CreatePostComponent } from './home/create-post/create-post.component';
+import { PostComponent } from './home/post/post.component';
+import {
+  SharedServiceSelectedSubreddit,
+  SharedServiceSubreddits,
+} from './services/shared.service';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    HeaderComponent,
+    CreatePostComponent,
+    PostComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
-  providers: [],
+  providers: [SharedServiceSubreddits, SharedServiceSelectedSubreddit],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

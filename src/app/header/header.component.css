@@ -77,10 +77,11 @@
   left: 50%;
   width: 600px;
   transform: translate(-50%, -50%);
-  background-color: #fdfdfd;
+  background-color: #ffffff;
   border-radius: 4px;
   padding: 30px 36px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(107, 107, 107);
 }
 
 .create-subraddit-popup-box h4 {

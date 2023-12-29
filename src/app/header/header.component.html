@@ -11,6 +11,7 @@
         {{ selectedCommunity }}
       </button>
       <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+        <button ngbDropdownItem (click)="click('Show All')">Show All</button>
         <button
           ngbDropdownItem
           *ngFor="let subreddit of subreddits"
@@ -18,8 +19,7 @@
         >
           {{ subreddit.name }}
         </button>
-        <!-- <button ngbDropdownItem>SubRaddit 02</button>
-        <button ngbDropdownItem>SubRaddit 03</button> -->
+        <!-- <button ngbDropdownItem>SubRaddit 03</button> -->
       </div>
     </div>
 

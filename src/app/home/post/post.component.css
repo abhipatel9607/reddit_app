@@ -1,0 +1,11 @@
+.post-container {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.filter {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 20px;
+}

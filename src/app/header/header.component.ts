@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { createData, getAllData } from '../firebase/firestore';
 import { SubredditType } from '../models/subraddit.model';
+import {
+  SharedServiceSubreddits,
+  SharedServiceSelectedSubreddit,
+} from '../services/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -13,10 +17,14 @@ export class HeaderComponent implements OnInit {
   errText: string;
   communityInput: string = '';
   showCreateCommunityPopup: boolean = false;
-  selectedCommunity: string = '';
+  selectedCommunity: string = 'Show All';
   subreddits: SubredditType[] = [];
 
-  constructor(private auth: AuthService) {}
+  constructor(
+    private auth: AuthService,
+    private sharedServiceSubreddits: SharedServiceSubreddits,
+    private sharedServiceSelectedSubreddit: SharedServiceSelectedSubreddit
+  ) {}
 
   ngOnInit(): void {
     this.auth.user$.subscribe((user) => {
@@ -71,11 +79,14 @@ export class HeaderComponent implements OnInit {
   async loadSubreddits(): Promise<void> {
     const allCommunities = await getAllData('subreddit');
     this.subreddits = allCommunities;
-    this.selectedCommunity = allCommunities[allCommunities.length - 1].name;
+    // this.selectedCommunity = allCommunities[allCommunities.length - 1].name;
     console.log(allCommunities);
+
+    this.sharedServiceSubreddits.updateSubredditsData(allCommunities);
   }
 
   click(name: string) {
     this.selectedCommunity = name;
+    this.sharedServiceSelectedSubreddit.updateSelectedSubreddit(name);
   }
 }
