@@ -1,0 +1,5 @@
+.blur {
+  filter: blur(1px);
+  opacity: 0.5;
+  transition: filter 0.3s, opacity 0.3s;
+}

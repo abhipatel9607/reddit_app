@@ -12,7 +12,10 @@ import { PostComponent } from './home/post/post.component';
 import {
   SharedServiceSelectedSubreddit,
   SharedServiceSubreddits,
+  CreatePostPopupService,
 } from './services/shared.service';
+import { CreatePostPopupComponent } from './create-post-popup/create-post-popup.component';
+import { CreateSubredditPopupComponent } from './create-subreddit-popup/create-subreddit-popup.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +24,15 @@ import {
     HeaderComponent,
     CreatePostComponent,
     PostComponent,
+    CreatePostPopupComponent,
+    CreateSubredditPopupComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
-  providers: [SharedServiceSubreddits, SharedServiceSelectedSubreddit],
+  providers: [
+    SharedServiceSubreddits,
+    SharedServiceSelectedSubreddit,
+    CreatePostPopupService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

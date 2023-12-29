@@ -1,2 +1,6 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<div [ngClass]="{ blur: isOpenCreatePostPopup }">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+</div>
+
+<create-post-popup *ngIf="isOpenCreatePostPopup"></create-post-popup>
