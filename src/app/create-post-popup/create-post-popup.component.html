@@ -4,7 +4,7 @@
     <hr />
   </div>
 
-  <div class="choos-commnuity-box">
+  <div class="choose-commnuity-box">
     <h5>Choose a Community:</h5>
     <div ngbDropdown class="d-inline-block">
       <button
@@ -60,12 +60,16 @@
           class="form-control input"
           type="text"
           placeholder="Enter Title"
+          [(ngModel)]="postTitle"
         />
+
+        <div class="invalid-feedback">Please provide a valid city.</div>
         <textarea
           class="form-control input"
           id="exampleFormControlTextarea3"
           rows="5"
           placeholder="Enter Text"
+          [(ngModel)]="postText"
         ></textarea>
       </div>
       <div *ngSwitchCase="'url'" class="input-boxes">
@@ -73,12 +77,14 @@
           class="form-control input"
           type="text"
           placeholder="Enter Title"
+          [(ngModel)]="urlTitle"
         />
         <textarea
           class="form-control input"
           id="exampleFormControlTextarea3"
           rows="5"
           placeholder="Enter URL"
+          [(ngModel)]="url"
         ></textarea>
       </div>
       <div *ngSwitchCase="'image'" class="input-boxes">
@@ -86,16 +92,26 @@
           class="form-control input"
           type="text"
           placeholder="Enter Title"
+          [(ngModel)]="imgTitle"
+          required
         />
         <textarea
           class="form-control input"
           id="exampleFormControlTextarea3"
           rows="3"
           placeholder="What's this image about?"
+          [(ngModel)]="imgText"
+          required
         ></textarea>
+
         <div class="choose-img-section">
           <div class="mb-3 choose-img-input">
-            <input class="form-control" type="file" id="formFile" />
+            <input
+              class="form-control"
+              type="file"
+              id="formFile"
+              [(ngModel)]="imgInputUrl"
+            />
           </div>
         </div>
       </div>
@@ -104,7 +120,9 @@
   </div>
 
   <div class="action-btns">
-    <button type="button" class="btn create-post-btn">POST</button>
+    <button type="button" class="btn create-post-btn" (click)="createPost()">
+      POST
+    </button>
     <button
       type="button"
       class="btn create-post-btn"
@@ -112,5 +130,6 @@
     >
       CANCEL
     </button>
+    <p class="err-text">{{ errText }}</p>
   </div>
 </div>

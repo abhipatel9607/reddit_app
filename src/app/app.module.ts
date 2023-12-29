@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +16,6 @@ import {
   CreatePostPopupService,
 } from './services/shared.service';
 import { CreatePostPopupComponent } from './create-post-popup/create-post-popup.component';
-import { CreateSubredditPopupComponent } from './create-subreddit-popup/create-subreddit-popup.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +25,14 @@ import { CreateSubredditPopupComponent } from './create-subreddit-popup/create-s
     CreatePostComponent,
     PostComponent,
     CreatePostPopupComponent,
-    CreateSubredditPopupComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    FormsModule,
+    CommonModule,
+  ],
   providers: [
     SharedServiceSubreddits,
     SharedServiceSelectedSubreddit,

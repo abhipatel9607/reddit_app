@@ -64,6 +64,10 @@ export class HeaderComponent implements OnInit {
       const data = { name: this.communityInput, userId: this.user.uid };
       let createdData = await createData('subreddit', data);
       await this.loadSubreddits();
+      this.selectedCommunity = this.subreddits[this.subreddits.length - 1].name;
+      this.sharedServiceSelectedSubreddit.updateSelectedSubreddit(
+        this.selectedCommunity
+      );
       console.log('Community Created', createData);
       this.communityInput = '';
       this.showCreateCommunityPopup = false;
@@ -79,7 +83,6 @@ export class HeaderComponent implements OnInit {
   async loadSubreddits(): Promise<void> {
     const allCommunities = await getAllData('subreddit');
     this.subreddits = allCommunities;
-    // this.selectedCommunity = allCommunities[allCommunities.length - 1].name;
     console.log(allCommunities);
 
     this.sharedServiceSubreddits.updateSubredditsData(allCommunities);
