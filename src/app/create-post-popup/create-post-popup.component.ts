@@ -55,7 +55,7 @@ export class CreatePostPopupComponent implements OnInit {
 
     this.sharedServiceSelectedSubreddit.selectedSubreddit$.subscribe(
       (selectedSubreddit: string) => {
-        console.log('koooooooooo', selectedSubreddit);
+        console.log(selectedSubreddit);
         if (selectedSubreddit !== 'Show All' && selectedSubreddit) {
           this.selectedSubredditForCreateNewPost = selectedSubreddit;
         }
@@ -140,16 +140,18 @@ export class CreatePostPopupComponent implements OnInit {
       ).subredditId,
       userName: this.user.displayName,
       subredditName: this.selectedSubredditForCreateNewPost,
-      upVoteCount: 0,
+      upVoteCount: 1,
       downVoteCount: 0,
       img: this.imgInputUrl,
+      comments: [],
+      upVotedUsers: [this.user.uid],
+      downVotedUsers: [],
     };
     return postData;
   }
 
   onFileSelected(event: any) {
     this.file = event.target.files[0];
-    console.log(this.file);
   }
 
   async createPost() {

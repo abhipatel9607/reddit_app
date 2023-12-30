@@ -21,7 +21,7 @@ export class SharedServiceSubreddits {
 })
 export class SharedServiceSelectedSubreddit {
   private selectedSubredditSubject: BehaviorSubject<string> =
-    new BehaviorSubject<string>('');
+    new BehaviorSubject<string>('Show All');
   selectedSubreddit$: Observable<string> =
     this.selectedSubredditSubject.asObservable();
 
@@ -67,5 +67,20 @@ export class CreateSubredditPopupService {
   updatePopupState(isOpen: boolean): void {
     console.log('Subreddit Popup State Updated:', isOpen);
     this.isOpenCreateSubredditPopupSubject.next(isOpen);
+  }
+}
+
+export class SearchPostInputService {
+  private searchPostsInputSubject: BehaviorSubject<string> =
+    new BehaviorSubject<string>('');
+  searchPostsInput$: Observable<string> =
+    this.searchPostsInputSubject.asObservable();
+
+  updateSearchPostsInput(data: string): void {
+    this.searchPostsInputSubject.next(data);
+  }
+
+  getCurrentSearchInput(): string {
+    return this.searchPostsInputSubject.value;
   }
 }

@@ -5,7 +5,9 @@ import { SubredditType } from '../models/subraddit.model';
 import {
   SharedServiceSubreddits,
   SharedServiceSelectedSubreddit,
+  SearchPostInputService,
 } from '../services/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -19,9 +21,12 @@ export class HeaderComponent implements OnInit {
   showCreateCommunityPopup: boolean = false;
   selectedCommunity: string = 'Show All';
   subreddits: SubredditType[] = [];
+  searchPostsInput: string = '';
 
   constructor(
     private auth: AuthService,
+    private router: Router,
+    private searchPostInputService: SearchPostInputService,
     private sharedServiceSubreddits: SharedServiceSubreddits,
     private sharedServiceSelectedSubreddit: SharedServiceSelectedSubreddit
   ) {}
@@ -88,8 +93,20 @@ export class HeaderComponent implements OnInit {
     this.sharedServiceSubreddits.updateSubredditsData(allCommunities);
   }
 
-  click(name: string) {
+  onSearchPostsInputChange() {
+    this.searchPostInputService.updateSearchPostsInput(this.searchPostsInput);
+    this.router.navigate(['/home']);
+  }
+
+  onChangeSelectedSubreddit(name: string) {
     this.selectedCommunity = name;
     this.sharedServiceSelectedSubreddit.updateSelectedSubreddit(name);
+    this.router.navigate(['/home']);
+  }
+
+  goToHome() {
+    this.selectedCommunity = 'Show All';
+    this.sharedServiceSelectedSubreddit.updateSelectedSubreddit('Show All');
+    this.router.navigate(['/home']);
   }
 }

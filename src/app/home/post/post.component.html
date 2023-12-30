@@ -1,42 +1,39 @@
 <div class="post-box">
   <div class="vote-container">
-    <i class="vote-icon bi bi-arrow-up-circle"></i>
+    <i class="vote-icon bi bi-arrow-up-circle" [ngClass]=""></i>
     <span>0</span>
     <i class="vote-icon bi bi-arrow-down-circle active"></i>
   </div>
-  <div class="post-container">
+  <div class="post-container" (click)="openPostDetail(post?.postId)">
     <div class="post-header-box">
-      <h5 class="subreddit-heading">SubReddit</h5>
-      <p>Posted by: <span class="light-gray">Abhishek</span></p>
-      <p>Created at: <span class="light-gray">25 days ago</span></p>
+      <h5 class="subreddit-heading">{{ post?.subredditName }}</h5>
+      <p>
+        Posted by: <span class="light-gray">{{ post?.userName }}</span>
+      </p>
+      <p>
+        Created at:
+        <span class="light-gray">{{ post?.createdAt | timeAgo }}</span>
+      </p>
     </div>
     <hr />
-    <h4 class="post-title">What are some best Self Help Books</h4>
-    <p class="post-text">
-      The 33 Best Self-Help Books of All Time to Read at Any Age Best Books on
-      Self-Help Overall The 48 Laws of Power by Robert Greene. The Courage to Be
-      Disliked by Ichiro Kishimi & Fumitake Koga. Man's Search for Meaning by
-      Viktor Frankl. How to Stop Worrying and Start Living by Dale Carnegie.
-      Daring Greatly by Brene Brown. Big Magic by Elizabeth Gilbert. Quiet by
-      Susan Cain.
+    <h4 class="post-title">{{ post?.title }}</h4>
+    <p class="post-text" *ngIf="post?.content">
+      {{ post?.content }}
     </p>
     <a
-      href="https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/"
+      [href]="post?.url"
       target="_blank"
       class="post-url"
       rel="noreferrer"
-      >https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/</a
+      *ngIf="post?.url"
+      >{{ post?.url }}</a
     >
 
-    <img
-      class="post-img"
-      src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/8fc60e0f-a097-4da9-8432-531bd2717e37/da4ppd9-11decf45-8588-4222-b809-1a0498e74370.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzhmYzYwZTBmLWEwOTctNGRhOS04NDMyLTUzMWJkMjcxN2UzN1wvZGE0cHBkOS0xMWRlY2Y0NS04NTg4LTQyMjItYjgwOS0xYTA0OThlNzQzNzAucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.QwLLVmPGPvzBrPCFvRu_d9p9jhwux25bBPt0DOhpu24"
-      alt=""
-    />
+    <img class="post-img" [src]="post?.img" alt="" *ngIf="post?.img" />
 
     <div class="comment-container">
       <i class="comment-icon bi bi-chat-square-dots"></i>
-      <span>0 Comments</span>
+      <span>{{ post?.comments.length }} Comments</span>
     </div>
   </div>
 </div>

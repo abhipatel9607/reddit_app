@@ -1,7 +1,17 @@
 <div class="header">
   <div class="toolbar" role="banner">
-    <img width="120" alt="Reddit Logo" src="assets/reddit_logo.png" />
-    <img width="40" alt="Home Logo" src="assets/home_icon.png" />
+    <img
+      width="120"
+      alt="Reddit Logo"
+      src="assets/reddit_logo.png"
+      (click)="goToHome()"
+    />
+    <img
+      width="40"
+      alt="Home Logo"
+      src="assets/home_icon.png"
+      (click)="goToHome()"
+    />
     <div ngbDropdown class="d-inline-block dropdownLevel-box">
       <button
         class="btn btn-primary bg-white text-black border border-gray-300"
@@ -11,34 +21,29 @@
         {{ selectedCommunity }}
       </button>
       <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-        <button ngbDropdownItem (click)="click('Show All')">Show All</button>
+        <button ngbDropdownItem (click)="onChangeSelectedSubreddit('Show All')">
+          Show All
+        </button>
         <button
           ngbDropdownItem
           *ngFor="let subreddit of subreddits"
-          (click)="click(subreddit.name)"
+          (click)="onChangeSelectedSubreddit(subreddit.name)"
         >
           {{ subreddit.name }}
         </button>
         <!-- <button ngbDropdownItem>SubRaddit 03</button> -->
       </div>
     </div>
-
-    <div class="search-container">
-      <form class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text border-0">
-            <i class="bi bi-search"></i>
-          </span>
-        </div>
-        <input
-          class="form-control form-control-sm border-0 w-75"
-          type="text"
-          placeholder="Search"
-          aria-label="Search"
-          mdbInput
-        />
-      </form>
+    <div class="search-icon">
+      <i class="bi bi-search"></i>
     </div>
+    <input
+      class="form-control input search-input"
+      type="text"
+      placeholder="Enter Title"
+      [(ngModel)]="searchPostsInput"
+      (input)="onSearchPostsInputChange()"
+    />
   </div>
   <ng-container *ngIf="!user; else userDetails">
     <div class="auth-context">
@@ -55,7 +60,7 @@
       </button>
       <div class="profile-box">
         <img class="profile-img" [src]="user.photoURL" alt="Img" />
-        <span>{{ user.displayName }}</span>
+        <span class="uname">{{ user.displayName }}</span>
         <button class="btn" (click)="userLogout()">LOGOUT</button>
       </div>
     </div>
@@ -83,12 +88,6 @@
       CREATE COMMUNITY
     </button>
     <p class="text-red" *ngIf="errText">{{ errText }}</p>
-    <!-- <small
-      id="emailHelp"
-      class="form-text text-muted text-red"
-      *ngIf="errText"
-      >{{ errText }}</small
-    > -->
   </div>
 
   <i class="x-icon bi bi-x-lg" (click)="closeCreateCommunityPopup()"></i>

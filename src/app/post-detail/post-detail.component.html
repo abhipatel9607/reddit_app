@@ -1,8 +1,44 @@
 <div class="post-detail-section">
   <div class="post-detail-post">
-    <app-post></app-post>
-    <div class="comment-section">
-      <p>comment</p>
+    <app-post [post]="post"></app-post>
+    <div class="comment-section-parent">
+      <div class="comment-section">
+        <div class="create-new-comment-section">
+          <img
+            class="img"
+            src="https://lh3.googleusercontent.com/a/ACg8ocKg2ZPUoeuQ_xU5uAGLjoBCTSXhRPPB1mPc2GdP5pVI7VI=s96-c"
+            alt=""
+          />
+          <div class="comment-flexitem-2">
+            <p>Abhishek Patel</p>
+            <textarea
+              class="new-comment-input form-control"
+              placeholder="Create a Comment"
+            ></textarea>
+          </div>
+          <button type="button" class="btn btn-primary btn-sm">Comment</button>
+        </div>
+      </div>
+    </div>
+    <!-- Show Existing Comment -->
+    <div class="comment-item" *ngFor="let comment of post?.comments">
+      <p>hiiiiiii</p>
+      <div class="comment-section">
+        <div class="create-new-comment-section">
+          <img class="img" [src]="comment.img" alt="Author Img" />
+          <div class="comment-flexitem-2">
+            <p>comment.authorName</p>
+            <hr />
+            <p class="comment-text">comment.text</p>
+            <div class="modify-actions-btn">
+              <span>Edit</span>
+              <span>Delete</span>
+              <span class="comment-timeStamp">Edited</span>
+              <span class="comment-timeStamp">- 5 days ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

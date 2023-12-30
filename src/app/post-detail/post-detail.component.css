@@ -1,6 +1,7 @@
 .post-detail-section {
   background-color: #e4e4e4;
   padding: 24px;
+  min-height: 90vh;
 }
 
 .post-detail-post {
@@ -8,4 +9,81 @@
   margin: 0 auto;
   border: 1px solid rgb(184, 184, 184);
   border-radius: 4px;
+  background-color: #fff;
+}
+
+.comment-section-parent {
+  border-top: 1px solid rgb(206, 206, 206);
+}
+
+.comment-section {
+  margin: 16px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.create-new-comment-section {
+  display: flex;
+}
+
+.img {
+  border-radius: 50%;
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+}
+
+.comment-flexitem-2 {
+  flex: 1;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.new-comment-input {
+  width: 100%;
+  padding: 2px;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  border-radius: 4px;
+  word-wrap: break-word;
+  text-wrap: wrap;
+}
+
+.new-comment-input:focus {
+  border: 1px solid gray;
+  padding: 2px; /* Keep the original padding value */
+}
+
+.btn {
+  align-self: center;
+  margin-left: 8px;
+  /* background-color: #ff4500; */
+}
+
+.comment-text {
+  color: rgb(100, 100, 100);
+  line-height: 1.4;
+}
+
+hr {
+  margin: 0 0 8px 0;
+  color: inherit;
+  border: 0;
+  border-top: var(--bs-border-width) solid;
+  opacity: 0.25;
+}
+
+.modify-actions-btn span {
+  font-size: 12px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.comment-timeStamp {
+  font-size: 12px;
+  color: gray;
 }

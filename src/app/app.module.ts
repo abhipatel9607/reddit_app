@@ -14,9 +14,11 @@ import {
   SharedServiceSelectedSubreddit,
   SharedServiceSubreddits,
   CreatePostPopupService,
+  SearchPostInputService,
 } from './services/shared.service';
 import { CreatePostPopupComponent } from './create-post-popup/create-post-popup.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
     PostComponent,
     CreatePostPopupComponent,
     PostDetailComponent,
+    TimeAgoPipe,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
     SharedServiceSubreddits,
     SharedServiceSelectedSubreddit,
     CreatePostPopupService,
+    SearchPostInputService,
   ],
   bootstrap: [AppComponent],
 })

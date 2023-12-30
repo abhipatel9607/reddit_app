@@ -6,6 +6,8 @@ import {
   addDoc,
   serverTimestamp,
   Timestamp,
+  doc,
+  getDoc,
 } from 'firebase/firestore';
 import { app, db } from './firebase.config';
 import * as firebase from 'firebase/app';
@@ -65,6 +67,22 @@ export async function uploadImage(file: any) {
     return downloadURL;
   } catch (error) {
     console.error('Error uploading file', error);
+    throw error;
+  }
+}
+
+export async function findById(tableName: string, tableId: string) {
+  try {
+    const docRef = doc(collection(db, tableName), tableId);
+    const docSnapshot = await getDoc(docRef);
+
+    if (docSnapshot.exists()) {
+      return docSnapshot.data();
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error(`Error finding ${tableName} by ID:`, error);
     throw error;
   }
 }

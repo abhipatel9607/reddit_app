@@ -16,6 +16,6 @@
   </div>
 
   <div class="post-container-box">
-    <app-post></app-post>
+    <app-post *ngFor="let post of finalPostsToRender" [post]="post"></app-post>
   </div>
 </div>
