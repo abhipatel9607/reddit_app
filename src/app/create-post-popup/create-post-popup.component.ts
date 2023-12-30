@@ -1,11 +1,13 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   SharedServiceSelectedSubreddit,
   SharedServiceSubreddits,
   CreatePostPopupService,
-} from '..//services/shared.service';
+} from '../services/shared.service';
 import { SubredditType } from '../models/subraddit.model';
 import { AuthService } from '../services/auth.service';
+import { createData, uploadImage } from '../firebase/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'create-post-popup',
@@ -26,9 +28,11 @@ export class CreatePostPopupComponent implements OnInit {
   imgText: string = '';
   imgInputUrl: string = '';
   errText: string = '';
+  file: any;
 
   constructor(
     private auth: AuthService,
+    private router: Router,
     private sharedServiceSubreddits: SharedServiceSubreddits,
     private sharedServiceSelectedSubreddit: SharedServiceSelectedSubreddit,
     private createPostPopupService: CreatePostPopupService
@@ -115,7 +119,7 @@ export class CreatePostPopupComponent implements OnInit {
         this.errText = 'Image Description is a Required field';
         return false;
       } else if (!this.imgInputUrl) {
-        this.errText = 'Please choose an Image';
+        this.errText = 'Please Select an Image to proceed';
         return false;
       } else {
         return true;
@@ -143,12 +147,26 @@ export class CreatePostPopupComponent implements OnInit {
     return postData;
   }
 
-  createPost() {
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    console.log(this.file);
+  }
+
+  async createPost() {
+    if (this.selectedPostType === 'image' && this.file) {
+      const imgUrlFromDb = await uploadImage(this.file);
+      this.imgInputUrl = imgUrlFromDb;
+    }
     if (!this.formValidation()) {
       return;
     }
-    this.errText = '';
-    let postData = this.collectRequiredData();
-    console.log(postData);
+
+    const dataToCreate = this.collectRequiredData();
+    const createdPost = await createData('post', dataToCreate);
+    console.log('Post Created Successfully', createdPost);
+
+    this.resetInputs();
+    this.createPostPopupService.updatePopupState(false);
+    this.router.navigate(['/post-detail', createdPost.id]);
   }
 }

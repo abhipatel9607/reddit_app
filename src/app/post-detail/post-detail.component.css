@@ -1,0 +1,11 @@
+.post-detail-section {
+  background-color: #e4e4e4;
+  padding: 24px;
+}
+
+.post-detail-post {
+  width: 70%;
+  margin: 0 auto;
+  border: 1px solid rgb(184, 184, 184);
+  border-radius: 4px;
+}

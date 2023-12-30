@@ -3,3 +3,16 @@
   min-height: 100vh;
   padding: 16px;
 }
+
+.filter-container,
+.post-container-box {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.filter {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 20px;
+}

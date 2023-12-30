@@ -1,4 +1,3 @@
-// shared.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SubredditType } from '../models/subraddit.model';
@@ -17,6 +16,9 @@ export class SharedServiceSubreddits {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class SharedServiceSelectedSubreddit {
   private selectedSubredditSubject: BehaviorSubject<string> =
     new BehaviorSubject<string>('');
@@ -28,6 +30,9 @@ export class SharedServiceSelectedSubreddit {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class CreatePostPopupService {
   private isOpenCreatePostPopupSubject: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
@@ -45,6 +50,9 @@ export class CreatePostPopupService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class CreateSubredditPopupService {
   private isOpenCreateSubredditPopupSubject: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);

@@ -16,6 +16,7 @@ import {
   CreatePostPopupService,
 } from './services/shared.service';
 import { CreatePostPopupComponent } from './create-post-popup/create-post-popup.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CreatePostPopupComponent } from './create-post-popup/create-post-popup.
     CreatePostComponent,
     PostComponent,
     CreatePostPopupComponent,
+    PostDetailComponent,
   ],
   imports: [
     BrowserModule,

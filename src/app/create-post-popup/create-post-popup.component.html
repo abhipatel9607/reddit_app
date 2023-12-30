@@ -110,7 +110,7 @@
               class="form-control"
               type="file"
               id="formFile"
-              [(ngModel)]="imgInputUrl"
+              (change)="onFileSelected($event)"
             />
           </div>
         </div>

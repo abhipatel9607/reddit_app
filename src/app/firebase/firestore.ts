@@ -7,12 +7,13 @@ import {
   serverTimestamp,
   Timestamp,
 } from 'firebase/firestore';
-import { db } from './firebase.config';
+import { app, db } from './firebase.config';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { SubredditTypeDB } from '../models/subraddit.model';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
-export async function createData(tableName, data) {
+export async function createData(tableName: string, data: object) {
   try {
     const collectionRef = collection(db, tableName);
     const createdData = await addDoc(collectionRef, {
@@ -47,6 +48,23 @@ export async function getAllData(tableName: string) {
     });
   } catch (error) {
     console.error(`Error getting all ${tableName}:`, error);
+    throw error;
+  }
+}
+
+export async function uploadImage(file: any) {
+  const storage = getStorage(app);
+  const storageRef = ref(storage, 'images/' + file.name);
+  const metadata = {
+    contentType: 'image/jpeg',
+  };
+  try {
+    const uploadTask = await uploadBytes(storageRef, file, metadata);
+    const downloadURL = await getDownloadURL(storageRef);
+    console.log('File Uploaded: URL:', downloadURL);
+    return downloadURL;
+  } catch (error) {
+    console.error('Error uploading file', error);
     throw error;
   }
 }
