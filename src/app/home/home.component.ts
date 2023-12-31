@@ -72,6 +72,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         post.title.toLocaleLowerCase().includes(searchTitle.toLocaleLowerCase())
       );
     }
+    console.log(this.finalPostsToRender);
   }
 
   private async loadPosts(): Promise<void> {
@@ -83,5 +84,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       console.error('Error loading posts:', error);
       // Handle the error (e.g., display an error message)
     }
+  }
+
+  sortOnLatest() {
+    this.finalPostsToRender = this.finalPostsToRender.sort(
+      (a, b) => b.createdAt - a.createdAt
+    );
+  }
+  sortOnOldest() {
+    this.finalPostsToRender = this.finalPostsToRender.sort(
+      (a, b) => a.createdAt - b.createdAt
+    );
+  }
+  sortOnVote() {
+    this.finalPostsToRender = this.finalPostsToRender.sort(
+      (a, b) => b.upVoteCount - a.upVoteCount
+    );
   }
 }

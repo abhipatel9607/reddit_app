@@ -4,6 +4,7 @@
   border-radius: 4px;
   padding: 0 16px;
   display: flex;
+  margin-bottom: 24px;
 }
 
 .vote-container {

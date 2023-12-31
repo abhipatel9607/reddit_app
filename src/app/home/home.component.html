@@ -3,13 +3,25 @@
 
   <div class="filter-container">
     <div class="filter">
-      <button type="button" class="btn btn-sm btn-outline-primary">
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-primary"
+        (click)="sortOnLatest()"
+      >
         LATEST
       </button>
-      <button type="button" class="btn btn-sm btn-outline-primary">
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-primary"
+        (click)="sortOnOldest()"
+      >
         OLDEST
       </button>
-      <button type="button" class="btn btn-sm btn-outline-primary">
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-primary"
+        (click)="sortOnVote()"
+      >
         POPULAR
       </button>
     </div>
@@ -17,5 +29,15 @@
 
   <div class="post-container-box">
     <app-post *ngFor="let post of finalPostsToRender" [post]="post"></app-post>
+    <div
+      *ngIf="
+        finalPostsToRender.length === 0 && selectedSubreddit !== 'Show All'
+      "
+      class="no-post-box"
+    >
+      <p>
+        There is no any Post in this Community to show. Please Create a Post.
+      </p>
+    </div>
   </div>
 </div>

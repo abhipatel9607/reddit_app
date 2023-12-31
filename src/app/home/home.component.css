@@ -16,3 +16,11 @@
   gap: 40px;
   margin: 20px;
 }
+
+.no-post-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 30vh;
+  color: rgb(94, 94, 94);
+}

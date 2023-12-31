@@ -1,10 +1,16 @@
 <div class="post-box">
   <div class="vote-container">
-    <i class="vote-icon bi bi-arrow-up-circle" [ngClass]=""></i>
+    <i
+      class="vote-icon bi bi-arrow-up-circle"
+      [ngClass]="{ active: upVote }"
+    ></i>
     <span>0</span>
-    <i class="vote-icon bi bi-arrow-down-circle active"></i>
+    <i
+      class="vote-icon bi bi-arrow-down-circle"
+      [ngClass]="{ active: downVote }"
+    ></i>
   </div>
-  <div class="post-container" (click)="openPostDetail(post?.postId)">
+  <div class="post-container">
     <div class="post-header-box">
       <h5 class="subreddit-heading">{{ post?.subredditName }}</h5>
       <p>
@@ -31,7 +37,7 @@
 
     <img class="post-img" [src]="post?.img" alt="" *ngIf="post?.img" />
 
-    <div class="comment-container">
+    <div class="comment-container" (click)="openPostDetail(post?.postId)">
       <i class="comment-icon bi bi-chat-square-dots"></i>
       <span>{{ post?.comments.length }} Comments</span>
     </div>

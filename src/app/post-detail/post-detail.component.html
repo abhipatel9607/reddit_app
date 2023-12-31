@@ -1,6 +1,56 @@
 <div class="post-detail-section">
   <div class="post-detail-post">
-    <app-post [post]="post"></app-post>
+    <!-- Post Content -->
+    <div class="post-box">
+      <div class="vote-container">
+        <i
+          class="vote-icon bi bi-arrow-up-circle"
+          [ngClass]="{ active: upVote }"
+          (click)="onUpVote()"
+        ></i>
+        <span>{{ voteScore }}</span>
+        <i
+          class="vote-icon bi bi-arrow-down-circle"
+          [ngClass]="{ active: downVote }"
+          (click)="onDownVote()"
+        ></i>
+      </div>
+      <div class="post-container">
+        <div class="post-header-box">
+          <h5 class="subreddit-heading">{{ post?.subredditName }}</h5>
+          <p>
+            Posted by: <span class="light-gray">{{ post?.userName }}</span>
+          </p>
+          <p>
+            Created at:
+            <span class="light-gray">{{ post?.createdAt | timeAgo }}</span>
+          </p>
+        </div>
+        <hr />
+        <h4 class="post-title">{{ post?.title }}</h4>
+        <p class="post-text" *ngIf="post?.content">
+          {{ post?.content }}
+        </p>
+        <a
+          [href]="post?.url"
+          target="_blank"
+          class="post-url"
+          rel="noreferrer"
+          *ngIf="post?.url"
+          >{{ post?.url }}</a
+        >
+
+        <img class="post-img" [src]="post?.img" alt="" *ngIf="post?.img" />
+
+        <div class="comment-container" (click)="openPostDetail(post?.postId)">
+          <i class="comment-icon bi bi-chat-square-dots"></i>
+          <span>{{ post?.comments.length }} Comments</span>
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+
     <div class="comment-section-parent">
       <div class="comment-section">
         <div class="create-new-comment-section">
