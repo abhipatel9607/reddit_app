@@ -17,6 +17,8 @@ export class PostComponent {
 
   @Input() post: any;
 
+  private updateInProgress = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -24,10 +26,10 @@ export class PostComponent {
   ) {}
 
   ngOnInit() {
-    console.log('post', this.post);
     this.route.paramMap.subscribe((params) => {
       this.postId = params.get('postId');
     });
+
     this.auth.user$.subscribe((user) => {
       this.userId = user?.uid;
       if (this.post.upVotedUsers.includes(this.userId)) {
@@ -45,105 +47,129 @@ export class PostComponent {
   }
 
   async onUpVote() {
-    if (this.upVote) {
-      // User has already upvoted, cancel the upvote
-      this.upVote = false;
-      this.voteScore--;
+    if (this.updateInProgress) {
+      return; // If an update is already in progress, do nothing
+    }
 
-      const dataToBeUpdate = {
-        upVotedUsers: this.post.upVotedUsers.filter(
-          (id: string) => id !== this.userId
-        ),
-        upVoteCount: this.post.upVoteCount - 1,
-      };
+    this.updateInProgress = true;
 
-      const pId: string = this.post.postId ? this.post.postId : this.postId;
-      const updatedData = await updateData('post', pId, dataToBeUpdate);
+    try {
+      if (this.upVote) {
+        // User has already upvoted, cancel the upvote
 
-      // Perform any other logic, e.g., update vote count in the database
-    } else if (this.downVote) {
-      // User has downvoted and clicks upvote, toggle upVote and remove downVote
-      this.upVote = true;
-      this.downVote = false;
-      this.voteScore += 2;
+        const dataToBeUpdate = {
+          upVotedUsers: this.post.upVotedUsers.filter(
+            (id: string) => id !== this.userId
+          ),
+          upVoteCount: this.post.upVoteCount - 1,
+        };
+        -1;
 
-      const dataToBeUpdate = {
-        upVotedUsers: [...this.post.upVotedUsers, this.userId],
-        downVotedUsers: this.post.downVotedUsers.filter(
-          (id: string) => id !== this.userId
-        ),
-        upVoteCount: this.post.upVoteCount + 1,
-        downVoteCount: this.post.downVoteCount - 1,
-      };
+        const pId: string = this.post.postId ? this.post.postId : this.postId;
+        const updatedData = await updateData('post', pId, dataToBeUpdate);
 
-      const pId: string = this.post.postId ? this.post.postId : this.postId;
-      const updatedData = await updateData('post', pId, dataToBeUpdate);
+        this.upVote = false;
+        this.voteScore--;
+        // Perform any other logic, e.g., update vote count in the database
+      } else if (this.downVote) {
+        // User has downvoted and clicks upvote, toggle upVote and remove downVote
 
-      // Perform any other logic, e.g., update vote count in the database
-    } else {
-      // User hasn't upvoted, toggle upVote
-      this.upVote = true;
-      this.voteScore++;
+        const dataToBeUpdate = {
+          upVotedUsers: [...this.post.upVotedUsers, this.userId],
+          downVotedUsers: this.post.downVotedUsers.filter(
+            (id: string) => id !== this.userId
+          ),
+          upVoteCount: this.post.upVoteCount + 1,
+          downVoteCount: this.post.downVoteCount - 1,
+        };
 
-      const dataToBeUpdate = {
-        upVotedUsers: [...this.post.upVotedUsers, this.userId],
-        upVoteCount: this.post.upVoteCount + 1,
-      };
+        const pId: string = this.post.postId ? this.post.postId : this.postId;
+        const updatedData = await updateData('post', pId, dataToBeUpdate);
 
-      const pId: string = this.post.postId ? this.post.postId : this.postId;
-      const updatedData = await updateData('post', pId, dataToBeUpdate);
-      // Perform any other logic, e.g., update vote count in the database
+        this.upVote = true;
+        this.downVote = false;
+        this.voteScore += 2;
+        // Perform any other logic, e.g., update vote count in the database
+      } else {
+        // User hasn't upvoted, toggle upVote
+
+        const dataToBeUpdate = {
+          upVotedUsers: [...this.post.upVotedUsers, this.userId],
+          upVoteCount: this.post.upVoteCount + 1,
+        };
+
+        const pId: string = this.post.postId ? this.post.postId : this.postId;
+        const updatedData = await updateData('post', pId, dataToBeUpdate);
+
+        this.upVote = true;
+        this.voteScore++;
+        // Perform any other logic, e.g., update vote count in the database
+      }
+    } finally {
+      this.updateInProgress = false;
     }
   }
 
   async onDownVote() {
-    if (this.downVote) {
-      // User has already downvoted, cancel the downvote
-      this.downVote = false;
-      this.voteScore++;
+    if (this.updateInProgress) {
+      return; // If an update is already in progress, do nothing
+    }
 
-      const dataToBeUpdate = {
-        downVotedUsers: this.post.downVotedUsers.filter(
-          (id: string) => id !== this.userId
-        ),
-        downVoteCount: this.post.downVoteCount - 1,
-      };
+    this.updateInProgress = true;
 
-      const pId: string = this.post.postId ? this.post.postId : this.postId;
-      const updatedData = await updateData('post', pId, dataToBeUpdate);
+    try {
+      if (this.downVote) {
+        // User has already downvoted, cancel the downvote
 
-      // Perform any other logic, e.g., update vote count in the database
-    } else if (this.upVote) {
-      // User has upvoted and clicks downvote, toggle downVote and remove upVote
-      this.downVote = true;
-      this.upVote = false;
-      this.voteScore -= 2;
+        const dataToBeUpdate = {
+          downVotedUsers: this.post.downVotedUsers.filter(
+            (id: string) => id !== this.userId
+          ),
+          downVoteCount: this.post.downVoteCount - 1,
+        };
 
-      const dataToBeUpdate = {
-        downVotedUsers: [...this.post.downVotedUsers, this.userId],
-        upVotedUsers: this.post.upVotedUsers.filter(
-          (id: string) => id !== this.userId
-        ),
-        upVoteCount: this.post.upVoteCount - 1,
-        downVoteCount: this.post.downVoteCount + 1,
-      };
+        const pId: string = this.post.postId ? this.post.postId : this.postId;
+        const updatedData = await updateData('post', pId, dataToBeUpdate);
 
-      const pId: string = this.post.postId ? this.post.postId : this.postId;
-      const updatedData = await updateData('post', pId, dataToBeUpdate);
-      // Perform any other logic, e.g., update vote count in the database
-    } else {
-      // User hasn't downvoted, toggle downVote
-      this.downVote = true;
-      this.voteScore--;
+        this.downVote = false;
+        this.voteScore++;
+        // Perform any other logic, e.g., update vote count in the database
+      } else if (this.upVote) {
+        // User has upvoted and clicks downvote, toggle downVote and remove upVote
 
-      const dataToBeUpdate = {
-        downVotedUsers: [...this.post.downVotedUsers, this.userId],
-        downVoteCount: this.post.downVoteCount + 1,
-      };
+        const dataToBeUpdate = {
+          downVotedUsers: [...this.post.downVotedUsers, this.userId],
+          upVotedUsers: this.post.upVotedUsers.filter(
+            (id: string) => id !== this.userId
+          ),
+          upVoteCount: this.post.upVoteCount - 1,
+          downVoteCount: this.post.downVoteCount + 1,
+        };
 
-      const pId: string = this.post.postId ? this.post.postId : this.postId;
-      const updatedData = await updateData('post', pId, dataToBeUpdate);
-      // Perform any other logic, e.g., update vote count in the database
+        const pId: string = this.post.postId ? this.post.postId : this.postId;
+        const updatedData = await updateData('post', pId, dataToBeUpdate);
+
+        this.downVote = true;
+        this.upVote = false;
+        this.voteScore -= 2;
+        // Perform any other logic, e.g., update vote count in the database
+      } else {
+        // User hasn't downvoted, toggle downVote
+
+        const dataToBeUpdate = {
+          downVotedUsers: [...this.post.downVotedUsers, this.userId],
+          downVoteCount: this.post.downVoteCount + 1,
+        };
+
+        const pId: string = this.post.postId ? this.post.postId : this.postId;
+        const updatedData = await updateData('post', pId, dataToBeUpdate);
+
+        this.downVote = true;
+        this.voteScore--;
+        // Perform any other logic, e.g., update vote count in the database
+      }
+    } finally {
+      this.updateInProgress = false;
     }
   }
 }
