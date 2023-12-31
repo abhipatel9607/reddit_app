@@ -3,11 +3,13 @@
     <i
       class="vote-icon bi bi-arrow-up-circle"
       [ngClass]="{ active: upVote }"
+      (click)="onUpVote()"
     ></i>
-    <span>0</span>
+    <span>{{ voteScore }}</span>
     <i
       class="vote-icon bi bi-arrow-down-circle"
       [ngClass]="{ active: downVote }"
+      (click)="onDownVote()"
     ></i>
   </div>
   <div class="post-container">

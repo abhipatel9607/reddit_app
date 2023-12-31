@@ -8,6 +8,7 @@ import {
   Timestamp,
   doc,
   getDoc,
+  updateDoc,
 } from 'firebase/firestore';
 import { app, db } from './firebase.config';
 import * as firebase from 'firebase/app';
@@ -83,6 +84,25 @@ export async function findById(tableName: string, tableId: string) {
     }
   } catch (error) {
     console.error(`Error finding ${tableName} by ID:`, error);
+    throw error;
+  }
+}
+
+export async function updateData(
+  tableName: string,
+  tableId: string,
+  dataToBeUpdate: any
+) {
+  try {
+    console.log('kooooo', tableName, tableId, dataToBeUpdate);
+    const docRef = doc(db, tableName, tableId);
+    const updatedData = await updateDoc(docRef, {
+      ...dataToBeUpdate,
+      editedAt: serverTimestamp(),
+    });
+    return updatedData;
+  } catch (error) {
+    console.error(`Error updating ${tableName} document:`, error);
     throw error;
   }
 }

@@ -1,19 +1,15 @@
 <div class="post-detail-section">
   <div class="post-detail-post">
+    <div *ngIf="post">
+      <app-post [post]="post"></app-post>
+    </div>
+
     <!-- Post Content -->
-    <div class="post-box">
+    <!-- <div class="post-box">
       <div class="vote-container">
-        <i
-          class="vote-icon bi bi-arrow-up-circle"
-          [ngClass]="{ active: upVote }"
-          (click)="onUpVote()"
-        ></i>
-        <span>{{ voteScore }}</span>
-        <i
-          class="vote-icon bi bi-arrow-down-circle"
-          [ngClass]="{ active: downVote }"
-          (click)="onDownVote()"
-        ></i>
+        <i class="vote-icon bi bi-arrow-up-circle" [ngClass]=""></i>
+        <span>0</span>
+        <i class="vote-icon bi bi-arrow-down-circle active"></i>
       </div>
       <div class="post-container">
         <div class="post-header-box">
@@ -47,7 +43,7 @@
           <span>{{ post?.comments.length }} Comments</span>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!--  -->
 
