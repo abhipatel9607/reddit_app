@@ -80,12 +80,20 @@ hr {
 .modify-actions-btn span {
   font-size: 12px;
   margin-right: 8px;
-  cursor: pointer;
 }
 
-.comment-timeStamp {
+.comment-timeStamp,
+.comment-timeStamp-badge {
   font-size: 12px;
   color: gray;
+}
+
+.comment-timeStamp-badge {
+  padding: 2px 4px;
+  background-color: rgb(241, 241, 241);
+  border-radius: 4px;
+  font-size: 11px !important;
+  /* margin-right: -1px !important; */
 }
 
 /* Post Content */
@@ -166,4 +174,94 @@ hr {
   max-width: 100%;
   border-radius: 4px;
   margin-bottom: 4px;
+}
+
+.modify-btn {
+  cursor: pointer;
+}
+
+/* Update Comment Popup */
+
+.create-subraddit-popup-box {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  width: 600px;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 30px 36px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(107, 107, 107);
+}
+
+.create-subraddit-popup-box h5 {
+  margin-bottom: 16px;
+}
+
+.edit-comment-input {
+  width: 100%;
+  padding: 2px 6px;
+  box-sizing: border-box;
+  border: 1px solid rgb(187, 187, 187);
+  border-radius: 4px;
+  word-wrap: break-word;
+  text-wrap: wrap;
+}
+
+.name {
+  margin-bottom: 4px;
+}
+
+.text-red {
+  color: red !important;
+  margin-bottom: 0;
+  width: 70%;
+  line-height: normal;
+  font-size: 14px;
+}
+
+.create-subraddit-popup-box input {
+  border: 1px solid gray;
+}
+
+.x-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-weight: bold;
+}
+
+.btn-err-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.btn-err-box button {
+  background-color: #ff4500;
+  color: #ffffff;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-err-box button:active {
+  background-color: #ff4500;
+  color: #ffffff;
+}
+
+.text-red {
+  color: red !important;
+  margin-bottom: 0;
+}
+
+.dropdownLevel-box {
+  width: 150px;
+}
+
+.blur {
+  opacity: 0.3;
 }

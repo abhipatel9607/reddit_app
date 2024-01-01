@@ -15,6 +15,7 @@ import {
   SharedServiceSubreddits,
   CreatePostPopupService,
   SearchPostInputService,
+  ShowCommentService,
 } from './services/shared.service';
 import { CreatePostPopupComponent } from './create-post-popup/create-post-popup.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
@@ -43,6 +44,7 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     SharedServiceSelectedSubreddit,
     CreatePostPopupService,
     SearchPostInputService,
+    ShowCommentService,
   ],
   bootstrap: [AppComponent],
 })

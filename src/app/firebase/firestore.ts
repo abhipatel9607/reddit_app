@@ -94,7 +94,6 @@ export async function updateData(
   dataToBeUpdate: any
 ) {
   try {
-    console.log('kooooo', tableName, tableId, dataToBeUpdate);
     const docRef = doc(db, tableName, tableId);
     const updatedData = await updateDoc(docRef, {
       ...dataToBeUpdate,

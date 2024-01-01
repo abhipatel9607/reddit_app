@@ -5,6 +5,7 @@ import {
   SearchPostInputService,
 } from '../services/shared.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  user: any;
   allPost: any[] = [];
   finalPostsToRender: any[] = [];
   selectedSubreddit: string;
@@ -19,7 +21,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private sharedServiceSelectedSubreddit: SharedServiceSelectedSubreddit,
-    private searchPostInputService: SearchPostInputService
+    private searchPostInputService: SearchPostInputService,
+    private auth: AuthService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -31,10 +34,15 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.updateFinalPostsToRender();
         }
       );
+
     // Subscribe to changes in the searchPostsInput
     this.searchPostInputService.searchPostsInput$.subscribe((searchTitle) => {
       // Update the searchTitle and refresh the posts
       this.updateFinalPostsToRender();
+    });
+
+    this.auth.user$.subscribe((user) => {
+      this.user = user;
     });
   }
 
@@ -68,8 +76,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // Filter based on the searchTitle if it is provided
     if (searchTitle) {
-      this.finalPostsToRender = this.finalPostsToRender.filter((post) =>
-        post.title.toLocaleLowerCase().includes(searchTitle.toLocaleLowerCase())
+      this.finalPostsToRender = this.finalPostsToRender.filter(
+        (post) =>
+          post.title
+            .toLocaleLowerCase()
+            .includes(searchTitle.toLocaleLowerCase()) ||
+          post.content
+            .toLocaleLowerCase()
+            .includes(searchTitle.toLocaleLowerCase()) ||
+          this.user.displayName
+            .toLocaleLowerCase()
+            .includes(searchTitle.toLocaleLowerCase())
       );
     }
     console.log(this.finalPostsToRender);

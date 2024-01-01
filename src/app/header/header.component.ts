@@ -88,7 +88,6 @@ export class HeaderComponent implements OnInit {
   async loadSubreddits(): Promise<void> {
     const allCommunities = await getAllData('subreddit');
     this.subreddits = allCommunities;
-    console.log(allCommunities);
 
     this.sharedServiceSubreddits.updateSubredditsData(allCommunities);
   }

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { findById } from '../firebase/firestore';
+import { findById, updateData } from '../firebase/firestore';
 import { AuthService } from '../services/auth.service';
+import { ShowCommentService } from '../services/shared.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'post-detail',
@@ -9,17 +11,21 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./post-detail.component.css'],
 })
 export class PostDetailComponent {
-  userId: string;
+  user: any;
   postId: string;
   post: any;
-  upVote: boolean = false;
-  downVote: boolean = false;
-  voteScore: number;
+  errText: string;
+  commentInput: string = '';
+  isShowComment: boolean;
+  showEditCommentPopup: boolean = false;
+  editCommentInput: string = '';
+  selectedCommentToEdit: any;
 
   constructor(
     private auth: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private showCommentService: ShowCommentService
   ) {}
 
   async ngOnInit() {
@@ -27,21 +33,17 @@ export class PostDetailComponent {
       this.postId = params['postId'];
       await this.loadPost();
     });
+    this.auth.user$.subscribe((user) => {
+      this.user = user;
+    });
+    this.showCommentService.isShowComment$.subscribe((state) => {
+      this.isShowComment = state;
+    });
   }
 
   async loadPost() {
     const post = await findById('post', this.postId);
     this.post = post;
-    this.auth.user$.subscribe((user) => {
-      this.userId = user?.uid;
-      this.voteScore = post['upVoteCount'] - post['downVoteCount'];
-      if (this.post.upVotedUsers.includes(this.userId)) {
-        this.upVote = true;
-      }
-      if (this.post.downVotedUsers.includes(this.userId)) {
-        this.downVote = true;
-      }
-    });
     console.log('Post Fetch successfully', post);
   }
 
@@ -49,43 +51,71 @@ export class PostDetailComponent {
     this.router.navigate(['/post-detail', postId]);
   }
 
-  async onUpVote() {
-    if (this.upVote) {
-      // User has already upvoted, cancel the upvote
-      this.upVote = false;
-
-      // Perform any other logic, e.g., update vote count in the database
-    } else if (this.downVote) {
-      // User has downvoted and clicks upvote, toggle upVote and remove downVote
-      this.upVote = true;
-      this.downVote = false;
-
-      // Perform any other logic, e.g., update vote count in the database
-    } else {
-      // User hasn't upvoted, toggle upVote
-      this.upVote = true;
-
-      // Perform any other logic, e.g., update vote count in the database
-    }
+  async onSaveComment() {
+    const newCommentData = {
+      commentId: uuidv4(),
+      createdAt: Date.now(),
+      editedAt: Date.now(),
+      author: this.user.displayName,
+      authorUserId: this.user.uid,
+      authorImg: this.user.photoURL,
+      commentText: this.commentInput,
+      upVotedUsers: [this.user.uid],
+      downVotedUsers: [],
+      comments: [],
+    };
+    const dataToBeUpdate = {
+      comments: [...this.post.comments, newCommentData],
+    };
+    console.log(dataToBeUpdate);
+    await updateData('post', this.postId, dataToBeUpdate);
+    this.commentInput = '';
+    this.loadPost();
   }
 
-  async onDownVote() {
-    if (this.downVote) {
-      // User has already downvoted, cancel the downvote
-      this.downVote = false;
+  async oneDeleteComment(commentId: string) {
+    const dataToBeUpdate = {
+      comments: this.post.comments.filter(
+        (comment: any) => comment.commentId !== commentId
+      ),
+    };
+    await updateData('post', this.postId, dataToBeUpdate);
+    this.loadPost();
+  }
 
-      // Perform any other logic, e.g., update vote count in the database
-    } else if (this.upVote) {
-      // User has upvoted and clicks downvote, toggle downVote and remove upVote
-      this.downVote = true;
-      this.upVote = false;
-
-      // Perform any other logic, e.g., update vote count in the database
-    } else {
-      // User hasn't downvoted, toggle downVote
-      this.downVote = true;
-
-      // Perform any other logic, e.g., update vote count in the database
+  onOpenEditPopup(commentData: any) {
+    this.showEditCommentPopup = true;
+    this.editCommentInput = commentData.commentText;
+    this.selectedCommentToEdit = commentData;
+  }
+  onClosePopup() {
+    this.showEditCommentPopup = false;
+    this.editCommentInput = '';
+    this.selectedCommentToEdit = undefined;
+  }
+  onEditComment() {
+    if (this.editCommentInput === '') {
+      this.errText = 'Please enter a comment';
+      return;
     }
+
+    const index = this.post.comments.indexOf(this.selectedCommentToEdit);
+    this.selectedCommentToEdit.commentText = this.editCommentInput;
+
+    // Create a copy of the comments array with the updated comment
+    const updatedCommentsData = [...this.post.comments];
+    updatedCommentsData[index] = this.selectedCommentToEdit;
+
+    // Update the post object with the modified comments array
+    const updatedPost = { ...this.post, comments: updatedCommentsData };
+
+    // Update the post in the database or wherever you are storing it
+    // Assuming you have a function updateData to update the post
+    updateData('post', this.postId, updatedPost);
+
+    // Reset the state after editing
+    this.showEditCommentPopup = false;
+    this.editCommentInput = '';
+    this.selectedCommentToEdit = undefined;
   }
 }

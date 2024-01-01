@@ -1,90 +1,92 @@
-<div class="post-detail-section">
-  <div class="post-detail-post">
+<div class="post-detail-section" [ngClass]="{ blur: showEditCommentPopup }">
+  <div class="post-detail-post" *ngIf="post">
     <div *ngIf="post">
       <app-post [post]="post"></app-post>
     </div>
 
-    <!-- Post Content -->
-    <!-- <div class="post-box">
-      <div class="vote-container">
-        <i class="vote-icon bi bi-arrow-up-circle" [ngClass]=""></i>
-        <span>0</span>
-        <i class="vote-icon bi bi-arrow-down-circle active"></i>
-      </div>
-      <div class="post-container">
-        <div class="post-header-box">
-          <h5 class="subreddit-heading">{{ post?.subredditName }}</h5>
-          <p>
-            Posted by: <span class="light-gray">{{ post?.userName }}</span>
-          </p>
-          <p>
-            Created at:
-            <span class="light-gray">{{ post?.createdAt | timeAgo }}</span>
-          </p>
-        </div>
-        <hr />
-        <h4 class="post-title">{{ post?.title }}</h4>
-        <p class="post-text" *ngIf="post?.content">
-          {{ post?.content }}
-        </p>
-        <a
-          [href]="post?.url"
-          target="_blank"
-          class="post-url"
-          rel="noreferrer"
-          *ngIf="post?.url"
-          >{{ post?.url }}</a
-        >
-
-        <img class="post-img" [src]="post?.img" alt="" *ngIf="post?.img" />
-
-        <div class="comment-container" (click)="openPostDetail(post?.postId)">
-          <i class="comment-icon bi bi-chat-square-dots"></i>
-          <span>{{ post?.comments.length }} Comments</span>
-        </div>
-      </div>
-    </div> -->
-
-    <!--  -->
-
-    <div class="comment-section-parent">
-      <div class="comment-section">
-        <div class="create-new-comment-section">
-          <img
-            class="img"
-            src="https://lh3.googleusercontent.com/a/ACg8ocKg2ZPUoeuQ_xU5uAGLjoBCTSXhRPPB1mPc2GdP5pVI7VI=s96-c"
-            alt=""
-          />
-          <div class="comment-flexitem-2">
-            <p>Abhishek Patel</p>
-            <textarea
-              class="new-comment-input form-control"
-              placeholder="Create a Comment"
-            ></textarea>
+    <div *ngIf="isShowComment">
+      <div class="comment-section-parent">
+        <div class="comment-section">
+          <div class="create-new-comment-section">
+            <img class="img" [src]="user.photoURL" alt="" />
+            <div class="comment-flexitem-2">
+              <p>{{ user.displayName }}</p>
+              <textarea
+                class="new-comment-input form-control"
+                placeholder="Write a Comment"
+                [(ngModel)]="commentInput"
+              ></textarea>
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="onSaveComment()"
+            >
+              Comment
+            </button>
           </div>
-          <button type="button" class="btn btn-primary btn-sm">Comment</button>
         </div>
       </div>
-    </div>
-    <!-- Show Existing Comment -->
-    <div class="comment-item" *ngFor="let comment of post?.comments">
-      <p>hiiiiiii</p>
-      <div class="comment-section">
-        <div class="create-new-comment-section">
-          <img class="img" [src]="comment.img" alt="Author Img" />
-          <div class="comment-flexitem-2">
-            <p>comment.authorName</p>
-            <hr />
-            <p class="comment-text">comment.text</p>
-            <div class="modify-actions-btn">
-              <span>Edit</span>
-              <span>Delete</span>
-              <span class="comment-timeStamp">Edited</span>
-              <span class="comment-timeStamp">- 5 days ago</span>
+      <!-- Show Existing Comment -->
+      <div class="comment-item" *ngFor="let comment of post?.comments">
+        <div class="comment-section">
+          <div class="create-new-comment-section">
+            <img class="img" [src]="comment.authorImg" alt="Author Img" />
+            <div class="comment-flexitem-2">
+              <p>{{ comment.author }}</p>
+              <hr />
+              <p class="comment-text">{{ comment.commentText }}</p>
+              <div class="modify-actions-btn">
+                <span class="modify-btn" (click)="onOpenEditPopup(comment)"
+                  >Edit</span
+                >
+                <span
+                  class="modify-btn"
+                  (click)="oneDeleteComment(comment.commentId)"
+                  >Delete</span
+                >
+                <span class="comment-timeStamp-badge">Edited</span>
+                <span class="comment-timeStamp"
+                  >- {{ comment.editedAt | timeAgo }}</span
+                >
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<div class="create-subraddit-popup-box" *ngIf="showEditCommentPopup">
+  <h5>Edit Comment</h5>
+
+  <textarea
+    class="edit-comment-input form-control"
+    placeholder="Write whats on your mind"
+    rows="4"
+    [(ngModel)]="editCommentInput"
+  ></textarea>
+
+  <div class="btn-err-box">
+    <div>
+      <button
+        class="btn create-community-btn btn-sm"
+        placeholder="Enter email"
+        (click)="onEditComment()"
+      >
+        EDIT
+      </button>
+      <button
+        class="btn create-community-btn btn-sm"
+        placeholder="Enter email"
+        (click)="onClosePopup()"
+      >
+        CANCEL
+      </button>
+    </div>
+    <p class="text-red">* {{ errText }}</p>
+  </div>
+
+  <i class="x-icon bi bi-x-lg" (click)="onClosePopup()"></i>
 </div>

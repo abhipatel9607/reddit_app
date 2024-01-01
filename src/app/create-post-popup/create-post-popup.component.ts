@@ -140,8 +140,6 @@ export class CreatePostPopupComponent implements OnInit {
       ).subredditId,
       userName: this.user.displayName,
       subredditName: this.selectedSubredditForCreateNewPost,
-      upVoteCount: 1,
-      downVoteCount: 0,
       img: this.imgInputUrl,
       comments: [],
       upVotedUsers: [this.user.uid],

@@ -70,6 +70,9 @@ export class CreateSubredditPopupService {
   }
 }
 
+@Injectable({
+  providedIn: 'root',
+})
 export class SearchPostInputService {
   private searchPostsInputSubject: BehaviorSubject<string> =
     new BehaviorSubject<string>('');
@@ -82,5 +85,23 @@ export class SearchPostInputService {
 
   getCurrentSearchInput(): string {
     return this.searchPostsInputSubject.value;
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ShowCommentService {
+  private isShowCommentSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(true); // Set default state to true
+
+  isShowComment$: Observable<boolean> =
+    this.isShowCommentSubject.asObservable();
+
+  constructor() {}
+
+  updateCommentState(isShowComment: boolean): void {
+    console.log('Comment State Updated:', isShowComment);
+    this.isShowCommentSubject.next(isShowComment);
   }
 }
