@@ -12,10 +12,6 @@
   background-color: #fff;
 }
 
-.comment-section-parent {
-  border-top: 1px solid rgb(206, 206, 206);
-}
-
 .comment-section {
   margin: 16px;
   border: 1px solid #ccc;
@@ -39,10 +35,6 @@
   flex: 1;
 }
 
-p {
-  margin-bottom: 0;
-}
-
 .new-comment-input {
   width: 100%;
   padding: 2px;
@@ -53,15 +45,9 @@ p {
   text-wrap: wrap;
 }
 
-.new-comment-input:focus {
-  border: 1px solid gray;
-  padding: 2px; /* Keep the original padding value */
-}
-
 .btn {
   align-self: center;
   margin-left: 8px;
-  /* background-color: #ff4500; */
 }
 
 .comment-text {
@@ -93,10 +79,7 @@ hr {
   background-color: rgb(241, 241, 241);
   border-radius: 4px;
   font-size: 11px !important;
-  /* margin-right: -1px !important; */
 }
-
-/* Post Content */
 
 .post-box {
   width: 100%;
@@ -115,6 +98,7 @@ hr {
   background-color: rgb(216, 216, 216);
   padding: 16px 0;
 }
+
 .vote-icon {
   font-size: 20px;
   cursor: pointer;
@@ -152,6 +136,7 @@ hr {
   font-size: 22px;
   margin-bottom: 16px;
 }
+
 .post-text {
   line-height: 1.6;
   color: rgb(94, 94, 94);
@@ -179,8 +164,6 @@ hr {
 .modify-btn {
   cursor: pointer;
 }
-
-/* Update Comment Popup */
 
 .create-subraddit-popup-box {
   position: fixed;
@@ -266,6 +249,6 @@ hr {
   opacity: 0.3;
 }
 
-.create-comment-errText{
-margin-left: 60px;
+.create-comment-errText {
+  margin-left: 60px;
 }
