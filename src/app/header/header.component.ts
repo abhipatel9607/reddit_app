@@ -41,7 +41,6 @@ export class HeaderComponent implements OnInit {
 
   async userLogin(): Promise<void> {
     try {
-      console.log('Logging in...');
       await this.auth.login();
     } catch (error) {
       console.error('Login failed', error);
@@ -50,7 +49,6 @@ export class HeaderComponent implements OnInit {
 
   async userLogout(): Promise<void> {
     try {
-      console.log('Logging out...');
       await this.auth.logout();
       this.user = null;
     } catch (error) {
@@ -60,10 +58,12 @@ export class HeaderComponent implements OnInit {
 
   async createCommunity() {
     if (!this.communityInput) {
-      this.errText = 'This is a Required field';
+      this.errText = '* This is a Required field';
+      return;
     } else if (!navigator.onLine) {
       this.errText =
-        'Network is offline. Please check your internet connection.';
+        '* Network is offline. Please check your internet connection.';
+      return;
     } else {
       this.errText = '';
       const data = { name: this.communityInput, userId: this.user.uid };
@@ -73,7 +73,6 @@ export class HeaderComponent implements OnInit {
       this.sharedServiceSelectedSubreddit.updateSelectedSubreddit(
         this.selectedCommunity
       );
-      console.log('Community Created', createData);
       this.communityInput = '';
       this.showCreateCommunityPopup = false;
     }

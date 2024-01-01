@@ -24,3 +24,7 @@
   min-height: 30vh;
   color: rgb(94, 94, 94);
 }
+
+.sort-btn-active {
+  background-color: #83afef;
+}

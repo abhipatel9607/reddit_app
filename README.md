@@ -1,27 +1,71 @@
-# RedditApp
+# Reddit App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
+Welcome to the Reddit Clone project! This Angular application replicates some of the key features of Reddit, allowing users to create subreddits, add text/link/Image posts, upvote/downvote posts and comments, and more.
 
-## Development server
+## Live Demo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- You can see project directly from here
+  [Live Demo](https://reddit-app-abhishek.netlify.app/)
 
-## Code scaffolding
+## Getting Started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerequisites
 
-## Build
+Make sure you have the following tools installed:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Node.js: [Download Node.js](https://nodejs.org/)
+- Angular CLI: Install globally using `npm install -g @angular/cli`
 
-## Running unit tests
+### Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Clone the repository:
 
-## Running end-to-end tests
+   ```bash
+   git clone https://github.com/abhipatel9607/reddit_app.git
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. Change the repository:
 
-## Further help
+   ```bash
+   cd reddit_app
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   ng serve
+   ```
+   - Open your browser and navigate to `http://localhost:4200/` to view the app.
+
+## Features
+
+- **Authentication:** Users can sign up and log in to the application.
+- **Create a Subreddit:** Authenticated users can create a new subreddit.
+- **Add a Text Post:** Users can create text posts within a subreddit.
+- **Add a Link Post:** Users can create link posts within a subreddit.
+- **View Post Detail Page:** Users can view detailed information about a post, including comments.
+- **Upvote/Downvote:** Authenticated users can upvote or downvote both posts and comments.
+- **Add a Comment:** Users can add comments to a post.
+- **Edit a Comment:** Users can edit their own comments.
+- **View All Posts in a Subreddit:**
+  - Sorted by votes in descending order.
+  - Sorted by latest posts.
+
+## Project Structure
+
+- `src/app`: Contains the main Angular application code.
+- `src/app/firebase`: Firebase-related services (authentication, Firestore database, etc.).
+- `src/app/services`: Angular services for managing data and functionality.
+- `src/app/`: Angular components for different parts of the application.
+
+## Technologies Used
+
+- Angular 15
+- Firebase (Authentication, Firestore, Storage)
+
+## Contributing
+
+- Feel free to contribute to this project by opening issues or creating pull requests.

@@ -64,7 +64,6 @@ export async function uploadImage(file: any) {
   try {
     const uploadTask = await uploadBytes(storageRef, file, metadata);
     const downloadURL = await getDownloadURL(storageRef);
-    console.log('File Uploaded: URL:', downloadURL);
     return downloadURL;
   } catch (error) {
     console.error('Error uploading file', error);

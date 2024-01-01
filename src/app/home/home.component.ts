@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   finalPostsToRender: any[] = [];
   selectedSubreddit: string;
   private subscription: Subscription;
+  sortBy: string = 'latest';
 
   constructor(
     private sharedServiceSelectedSubreddit: SharedServiceSelectedSubreddit,
@@ -35,9 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       );
 
-    // Subscribe to changes in the searchPostsInput
     this.searchPostInputService.searchPostsInput$.subscribe((searchTitle) => {
-      // Update the searchTitle and refresh the posts
       this.updateFinalPostsToRender();
     });
 
@@ -52,16 +51,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  // private updateFinalPostsToRender(): void {
-  //   if (this.selectedSubreddit !== 'Show All') {
-  //     this.finalPostsToRender = this.allPost.filter(
-  //       (post) => post.subredditName === this.selectedSubreddit
-  //     );
-  //   } else {
-  //     this.finalPostsToRender = this.allPost;
-  //   }
-  // }
-
   private updateFinalPostsToRender(): void {
     if (this.selectedSubreddit !== 'Show All') {
       this.finalPostsToRender = this.allPost.filter(
@@ -71,10 +60,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.finalPostsToRender = this.allPost;
     }
 
-    // Retrieve the searchTitle from the service
     const searchTitle = this.searchPostInputService.getCurrentSearchInput();
 
-    // Filter based on the searchTitle if it is provided
     if (searchTitle) {
       this.finalPostsToRender = this.finalPostsToRender.filter(
         (post) =>
@@ -89,7 +76,6 @@ export class HomeComponent implements OnInit, OnDestroy {
             .includes(searchTitle.toLocaleLowerCase())
       );
     }
-    console.log(this.finalPostsToRender);
   }
 
   private async loadPosts(): Promise<void> {
@@ -99,23 +85,31 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.finalPostsToRender = posts.reverse();
     } catch (error) {
       console.error('Error loading posts:', error);
-      // Handle the error (e.g., display an error message)
     }
   }
 
   sortOnLatest() {
+    this.sortBy = 'latest';
     this.finalPostsToRender = this.finalPostsToRender.sort(
       (a, b) => b.createdAt - a.createdAt
     );
   }
   sortOnOldest() {
+    this.sortBy = 'oldest';
     this.finalPostsToRender = this.finalPostsToRender.sort(
       (a, b) => a.createdAt - b.createdAt
     );
   }
   sortOnVote() {
+    this.sortBy = 'popular';
+    this.finalPostsToRender = this.finalPostsToRender.map((post) => {
+      const voteCount: number =
+        post.upVotedUsers.length - post.downVotedUsers.length;
+      post.voteScore = voteCount;
+      return post;
+    });
     this.finalPostsToRender = this.finalPostsToRender.sort(
-      (a, b) => b.upVoteCount - a.upVoteCount
+      (a, b) => b.voteScore - a.voteScore
     );
   }
 }

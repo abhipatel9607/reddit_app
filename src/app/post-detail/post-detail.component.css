@@ -265,3 +265,7 @@ hr {
 .blur {
   opacity: 0.3;
 }
+
+.create-comment-errText{
+margin-left: 60px;
+}

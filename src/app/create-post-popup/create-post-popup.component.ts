@@ -55,7 +55,6 @@ export class CreatePostPopupComponent implements OnInit {
 
     this.sharedServiceSelectedSubreddit.selectedSubreddit$.subscribe(
       (selectedSubreddit: string) => {
-        console.log(selectedSubreddit);
         if (selectedSubreddit !== 'Show All' && selectedSubreddit) {
           this.selectedSubredditForCreateNewPost = selectedSubreddit;
         }
@@ -93,33 +92,45 @@ export class CreatePostPopupComponent implements OnInit {
   formValidation() {
     if (this.selectedPostType === 'post') {
       if (!this.postTitle) {
-        this.errText = 'Title is Required field';
+        this.errText = '* Title is Required field';
         return false;
       } else if (!this.postText) {
-        this.errText = 'Post Description is a Required field';
+        this.errText = '* Post Description is a Required field';
+        return false;
+      } else if (!navigator.onLine) {
+        this.errText =
+          '* Network is offline. Please check your internet connection.';
         return false;
       } else {
         return true;
       }
     } else if (this.selectedPostType === 'url') {
       if (!this.urlTitle) {
-        this.errText = 'Title is Required field';
+        this.errText = '* Title is Required field';
         return false;
       } else if (!this.url) {
-        this.errText = 'URL is a Required field';
+        this.errText = '* URL is a Required field';
+        return false;
+      } else if (!navigator.onLine) {
+        this.errText =
+          '* Network is offline. Please check your internet connection.';
         return false;
       } else {
         return true;
       }
     } else if (this.selectedPostType === 'image') {
       if (!this.imgTitle) {
-        this.errText = 'Title is Required field';
+        this.errText = '* Title is Required field';
         return false;
       } else if (!this.imgText) {
-        this.errText = 'Image Description is a Required field';
+        this.errText = '* Image Description is a Required field';
         return false;
       } else if (!this.imgInputUrl) {
-        this.errText = 'Please Select an Image to proceed';
+        this.errText = '* Please Select an Image to proceed';
+        return false;
+      } else if (!navigator.onLine) {
+        this.errText =
+          '* Network is offline. Please check your internet connection.';
         return false;
       } else {
         return true;
@@ -163,8 +174,6 @@ export class CreatePostPopupComponent implements OnInit {
 
     const dataToCreate = this.collectRequiredData();
     const createdPost = await createData('post', dataToCreate);
-    console.log('Post Created Successfully', createdPost);
-
     this.resetInputs();
     this.createPostPopupService.updatePopupState(false);
     this.router.navigate(['/post-detail', createdPost.id]);

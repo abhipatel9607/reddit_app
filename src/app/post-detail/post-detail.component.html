@@ -25,6 +25,7 @@
               Comment
             </button>
           </div>
+          <p class="create-comment-errText text-red">{{ errText }}</p>
         </div>
       </div>
       <!-- Show Existing Comment -->
@@ -45,9 +46,13 @@
                   (click)="oneDeleteComment(comment.commentId)"
                   >Delete</span
                 >
-                <span class="comment-timeStamp-badge">Edited</span>
+                <span
+                  class="comment-timeStamp-badge"
+                  *ngIf="comment.createdAt !== comment.editedAt"
+                  >Edited</span
+                >
                 <span class="comment-timeStamp"
-                  >- {{ comment.editedAt | timeAgo }}</span
+                  >- {{ comment.createdAt | timeAgo }}</span
                 >
               </div>
             </div>
@@ -85,7 +90,7 @@
         CANCEL
       </button>
     </div>
-    <p class="text-red">* {{ errText }}</p>
+    <p class="text-red">{{ errText }}</p>
   </div>
 
   <i class="x-icon bi bi-x-lg" (click)="onClosePopup()"></i>

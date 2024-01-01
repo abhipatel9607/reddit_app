@@ -45,7 +45,6 @@ export class CreatePostPopupService {
   }
 
   updatePopupState(isOpen: boolean): void {
-    console.log('Popup State Updated:', isOpen);
     this.isOpenCreatePostPopupSubject.next(isOpen);
   }
 }
@@ -65,7 +64,6 @@ export class CreateSubredditPopupService {
   }
 
   updatePopupState(isOpen: boolean): void {
-    console.log('Subreddit Popup State Updated:', isOpen);
     this.isOpenCreateSubredditPopupSubject.next(isOpen);
   }
 }
@@ -93,7 +91,7 @@ export class SearchPostInputService {
 })
 export class ShowCommentService {
   private isShowCommentSubject: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(true); // Set default state to true
+    new BehaviorSubject<boolean>(true);
 
   isShowComment$: Observable<boolean> =
     this.isShowCommentSubject.asObservable();
@@ -101,7 +99,6 @@ export class ShowCommentService {
   constructor() {}
 
   updateCommentState(isShowComment: boolean): void {
-    console.log('Comment State Updated:', isShowComment);
     this.isShowCommentSubject.next(isShowComment);
   }
 }

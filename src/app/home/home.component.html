@@ -6,6 +6,7 @@
       <button
         type="button"
         class="btn btn-sm btn-outline-primary"
+        [ngClass]="{ 'sort-btn-active': sortBy === 'latest' }"
         (click)="sortOnLatest()"
       >
         LATEST
@@ -14,6 +15,7 @@
         type="button"
         class="btn btn-sm btn-outline-primary"
         (click)="sortOnOldest()"
+        [ngClass]="{ 'sort-btn-active': sortBy === 'oldest' }"
       >
         OLDEST
       </button>
@@ -21,6 +23,7 @@
         type="button"
         class="btn btn-sm btn-outline-primary"
         (click)="sortOnVote()"
+        [ngClass]="{ 'sort-btn-active': sortBy === 'popular' }"
       >
         POPULAR
       </button>

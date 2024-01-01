@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { app } from '../firebase/firebase.config';
 import {
   getAuth,
-  signInWithRedirect,
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
@@ -30,7 +29,7 @@ export class AuthService {
     try {
       await signInWithPopup(this.auth, provider);
     } catch (error) {
-      console.log(error);
+      console.log('Login Failed', error);
     }
   }
 
@@ -39,7 +38,7 @@ export class AuthService {
       await signOut(this.auth);
       window.location.reload();
     } catch (error) {
-      console.log('LogOut failed');
+      console.log('LogOut failed', error);
     }
   }
 }

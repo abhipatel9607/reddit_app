@@ -44,7 +44,6 @@ export class PostDetailComponent {
   async loadPost() {
     const post = await findById('post', this.postId);
     this.post = post;
-    console.log('Post Fetch successfully', post);
   }
 
   openPostDetail(postId: string) {
@@ -52,6 +51,17 @@ export class PostDetailComponent {
   }
 
   async onSaveComment() {
+    if (!this.commentInput) {
+      this.errText = '* Please enter a comment';
+      return;
+    } else if (!navigator.onLine) {
+      this.errText =
+        '* Network is offline. Please check your internet connection.';
+      return;
+    } else {
+      this.errText = '';
+    }
+
     const newCommentData = {
       commentId: uuidv4(),
       createdAt: Date.now(),
@@ -67,7 +77,6 @@ export class PostDetailComponent {
     const dataToBeUpdate = {
       comments: [...this.post.comments, newCommentData],
     };
-    console.log(dataToBeUpdate);
     await updateData('post', this.postId, dataToBeUpdate);
     this.commentInput = '';
     this.loadPost();
@@ -84,6 +93,7 @@ export class PostDetailComponent {
   }
 
   onOpenEditPopup(commentData: any) {
+    this.errText = '';
     this.showEditCommentPopup = true;
     this.editCommentInput = commentData.commentText;
     this.selectedCommentToEdit = commentData;
@@ -92,22 +102,36 @@ export class PostDetailComponent {
     this.showEditCommentPopup = false;
     this.editCommentInput = '';
     this.selectedCommentToEdit = undefined;
+    this.errText = '';
   }
   onEditComment() {
-    if (this.editCommentInput === '') {
-      this.errText = 'Please enter a comment';
+    if (!this.editCommentInput) {
+      this.errText = '* Please enter a comment';
       return;
+    } else if (!navigator.onLine) {
+      this.errText =
+        '* Network is offline. Please check your internet connection.';
+      return;
+    } else {
+      this.errText = '';
     }
 
+    // Find the index of the selected comment in the comments array
     const index = this.post.comments.indexOf(this.selectedCommentToEdit);
+
+    // Update the comment with the edited text and new edited timestamp
     this.selectedCommentToEdit.commentText = this.editCommentInput;
+    this.selectedCommentToEdit.editedAt = Date.now();
 
     // Create a copy of the comments array with the updated comment
     const updatedCommentsData = [...this.post.comments];
     updatedCommentsData[index] = this.selectedCommentToEdit;
 
     // Update the post object with the modified comments array
-    const updatedPost = { ...this.post, comments: updatedCommentsData };
+    const updatedPost = {
+      ...this.post,
+      comments: updatedCommentsData,
+    };
 
     // Update the post in the database or wherever you are storing it
     // Assuming you have a function updateData to update the post
