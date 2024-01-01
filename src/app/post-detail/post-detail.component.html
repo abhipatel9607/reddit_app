@@ -4,7 +4,7 @@
       <app-post [post]="post"></app-post>
     </div>
 
-    <div *ngIf="isShowComment">
+    <div *ngIf="isShowComment" class="c-section">
       <div class="comment-section-parent">
         <div class="comment-section">
           <div class="create-new-comment-section">
@@ -38,12 +38,16 @@
               <hr />
               <p class="comment-text">{{ comment.commentText }}</p>
               <div class="modify-actions-btn">
-                <span class="modify-btn" (click)="onOpenEditPopup(comment)"
+                <span
+                  class="modify-btn"
+                  (click)="onOpenEditPopup(comment)"
+                  *ngIf="comment.authorUserId === user.uid"
                   >Edit</span
                 >
                 <span
                   class="modify-btn"
                   (click)="oneDeleteComment(comment.commentId)"
+                  *ngIf="comment.authorUserId === user.uid"
                   >Delete</span
                 >
                 <span

@@ -12,6 +12,10 @@
   background-color: #fff;
 }
 
+.comment-section-parent {
+  border-top: 1px solid rgb(206, 206, 206);
+}
+
 .comment-section {
   margin: 16px;
   border: 1px solid #ccc;
@@ -35,6 +39,10 @@
   flex: 1;
 }
 
+p {
+  margin-bottom: 0;
+}
+
 .new-comment-input {
   width: 100%;
   padding: 2px;
@@ -43,6 +51,11 @@
   border-radius: 4px;
   word-wrap: break-word;
   text-wrap: wrap;
+}
+
+.new-comment-input:focus {
+  border: 1px solid gray;
+  padding: 2px;
 }
 
 .btn {
@@ -81,6 +94,8 @@ hr {
   font-size: 11px !important;
 }
 
+/* Post Content */
+
 .post-box {
   width: 100%;
   background-color: #fff;
@@ -98,7 +113,6 @@ hr {
   background-color: rgb(216, 216, 216);
   padding: 16px 0;
 }
-
 .vote-icon {
   font-size: 20px;
   cursor: pointer;
@@ -136,7 +150,6 @@ hr {
   font-size: 22px;
   margin-bottom: 16px;
 }
-
 .post-text {
   line-height: 1.6;
   color: rgb(94, 94, 94);
@@ -164,6 +177,8 @@ hr {
 .modify-btn {
   cursor: pointer;
 }
+
+/* Update Comment Popup */
 
 .create-subraddit-popup-box {
   position: fixed;
