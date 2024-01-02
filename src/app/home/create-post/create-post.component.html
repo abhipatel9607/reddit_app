@@ -1,9 +1,5 @@
 <div class="create-post-home" *ngIf="user">
-  <img
-    class="profile-img-home"
-    src="https://lh3.googleusercontent.com/a/ACg8ocKg2ZPUoeuQ_xU5uAGLjoBCTSXhRPPB1mPc2GdP5pVI7VI=s96-c"
-    alt="Img"
-  />
+  <img class="profile-img-home" [src]="user.photoURL" alt="Img" />
   <input
     type="password"
     class="form-control create-post-input-home"
