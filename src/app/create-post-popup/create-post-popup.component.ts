@@ -4,7 +4,7 @@ import {
   SharedServiceSubreddits,
   CreatePostPopupService,
 } from '../services/shared.service';
-import { SubredditType } from '../models/subraddit.model';
+import { SubredditType } from '../models/subreddit.model';
 import { AuthService } from '../services/auth.service';
 import { createData, uploadImage } from '../firebase/firestore';
 import { Router } from '@angular/router';

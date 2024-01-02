@@ -30,7 +30,9 @@ h4 {
 
 .custom-btn {
   background-color: white;
-  color: #313131;
+  font-size: 15px;
+  font-weight: 500;
+  color: #777;
   border: none;
   border-radius: 0;
   outline: none;
@@ -71,7 +73,8 @@ h4 {
   width: fit-content;
   background-color: #ff581c;
   color: #fff;
-  padding: 4px 24px;
+  padding: 4px 12px;
+  font-size: 15px;
 }
 
 .create-post-btn:hover {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { SubredditType } from '../models/subraddit.model';
+import { SubredditType } from '../models/subreddit.model';
 
 @Injectable({
   providedIn: 'root',

@@ -46,7 +46,7 @@
   </div>
 </div>
 
-<div class="create-subraddit-popup-box" *ngIf="showEditCommentPopup">
+<div class="create-subreddit-popup-box" *ngIf="showEditCommentPopup">
   <h5>Edit Comment</h5>
 
   <textarea
@@ -57,13 +57,13 @@
   ></textarea>
 
   <div class="btn-err-box">
-    <div>
+    <div class="submit-cancal-btn-box">
       <button
         class="btn create-community-btn btn-sm"
         placeholder="Enter email"
         (click)="onEditComment()"
       >
-        EDIT
+        SUBMIT
       </button>
       <button
         class="btn create-community-btn btn-sm"

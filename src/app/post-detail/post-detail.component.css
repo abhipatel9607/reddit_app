@@ -71,7 +71,7 @@ p {
   font-size: 14px;
 }
 
-.create-subraddit-popup-box {
+.create-subreddit-popup-box {
   position: fixed;
   top: 40%;
   left: 50%;
@@ -84,7 +84,7 @@ p {
   border: 1px solid rgb(107, 107, 107);
 }
 
-.create-subraddit-popup-box h5 {
+.create-subreddit-popup-box h5 {
   margin-bottom: 16px;
 }
 
@@ -164,4 +164,8 @@ p {
   align-self: center;
   margin-left: 0;
   font-size: 14px;
+}
+
+.submit-cancal-btn-box {
+  display: flex;
 }

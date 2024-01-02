@@ -11,7 +11,7 @@ import {
 import { app, db } from './firebase.config';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { SubredditTypeDB } from '../models/subraddit.model';
+import { SubredditTypeDB } from '../models/subreddit.model';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 export async function createData(tableName: string, data: object) {

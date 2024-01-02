@@ -17,10 +17,10 @@
       <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
         <button
           ngbDropdownItem
-          *ngFor="let subraddit of subreddits"
-          (click)="selectSubreddit(subraddit.name)"
+          *ngFor="let subreddit of subreddits"
+          (click)="selectSubreddit(subreddit.name)"
         >
-          {{ subraddit?.name }}
+          {{ subreddit?.name }}
         </button>
       </div>
     </div>

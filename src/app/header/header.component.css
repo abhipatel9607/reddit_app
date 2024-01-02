@@ -30,10 +30,11 @@
 .btn {
   background-color: #ff4500;
   color: #ffffff;
-  padding: 8px 16px;
+  padding: 6px 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 15px;
 }
 
 .btn i {
@@ -57,7 +58,7 @@
 }
 
 .search-input {
-  padding: 8px 6px;
+  padding: 6px;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   border-left: none;
@@ -65,7 +66,7 @@
 
 .search-icon {
   border: 1px solid rgb(212, 212, 212);
-  padding: 8px 6px;
+  padding: 6px;
 
   margin-left: 10px;
   border-right: none;
@@ -74,7 +75,7 @@
   border-top-left-radius: 4px;
 }
 
-.create-subraddit-popup-box {
+.create-subreddit-popup-box {
   position: fixed;
   top: 40%;
   left: 50%;
@@ -87,7 +88,7 @@
   border: 1px solid rgb(107, 107, 107);
 }
 
-.create-subraddit-popup-box h4 {
+.create-subreddit-popup-box h4 {
   margin-bottom: 20px;
 }
 
@@ -102,7 +103,7 @@
   line-height: normal;
 }
 
-.create-subraddit-popup-box input {
+.create-subreddit-popup-box input {
   border: 1px solid gray;
 }
 

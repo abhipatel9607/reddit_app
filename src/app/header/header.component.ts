@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { createData, getAllData } from '../firebase/firestore';
-import { SubredditType } from '../models/subraddit.model';
+import { SubredditType } from '../models/subreddit.model';
 import {
   SharedServiceSubreddits,
   SharedServiceSelectedSubreddit,
@@ -68,8 +68,13 @@ export class HeaderComponent implements OnInit {
       this.errText = '';
       const data = { name: this.communityInput, userId: this.user.uid };
       let createdData = await createData('subreddit', data);
+
+      console.log(createdData, createdData.id);
       await this.loadSubreddits();
-      this.selectedCommunity = this.subreddits[this.subreddits.length - 1].name;
+      const createdSubredditData = this.subreddits.find(
+        (subreddit) => subreddit.subredditId === createdData.id
+      );
+      this.selectedCommunity = createdSubredditData.name;
       this.sharedServiceSelectedSubreddit.updateSelectedSubreddit(
         this.selectedCommunity
       );
@@ -85,10 +90,9 @@ export class HeaderComponent implements OnInit {
   }
 
   async loadSubreddits(): Promise<void> {
-    const allCommunities = await getAllData('subreddit');
-    this.subreddits = allCommunities;
-
-    this.sharedServiceSubreddits.updateSubredditsData(allCommunities);
+    const subReddits = await getAllData('subreddit');
+    this.subreddits = subReddits;
+    this.sharedServiceSubreddits.updateSubredditsData(subReddits);
   }
 
   onSearchPostsInputChange() {
