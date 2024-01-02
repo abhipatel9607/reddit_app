@@ -4,8 +4,6 @@ import {
   query,
   orderBy,
   addDoc,
-  serverTimestamp,
-  Timestamp,
   doc,
   getDoc,
   updateDoc,
@@ -21,7 +19,7 @@ export async function createData(tableName: string, data: object) {
     const collectionRef = collection(db, tableName);
     const createdData = await addDoc(collectionRef, {
       ...data,
-      createdAt: serverTimestamp(),
+      createdAt: Date.now(),
     });
     return createdData;
   } catch (error) {
@@ -43,10 +41,6 @@ export async function getAllData(tableName: string) {
       return {
         [`${tableName}Id`]: doc.id,
         ...data,
-        createdAt:
-          data.createdAt instanceof Timestamp
-            ? data.createdAt.toMillis()
-            : data.createdAt,
       };
     });
   } catch (error) {
@@ -96,7 +90,7 @@ export async function updateData(
     const docRef = doc(db, tableName, tableId);
     const updatedData = await updateDoc(docRef, {
       ...dataToBeUpdate,
-      editedAt: serverTimestamp(),
+      editedAt: Date.now(),
     });
     return updatedData;
   } catch (error) {

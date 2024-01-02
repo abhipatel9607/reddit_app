@@ -10,7 +10,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class CommentItemComponent {
   user: any;
   userId: string;
-  // postId: string;
   upVote: boolean = false;
   downVote: boolean = false;
   voteScore: number = 0;
@@ -20,6 +19,7 @@ export class CommentItemComponent {
   @Input() postId: string;
   @Output() openEditPopupCommentEvent = new EventEmitter<any>();
   @Output() deleteCommentEvent = new EventEmitter<string>();
+  @Output() onOpenLoginPopup = new EventEmitter();
 
   private updateInProgress = false;
 
@@ -28,15 +28,12 @@ export class CommentItemComponent {
   async ngOnInit() {
     this.auth.user$.subscribe((user) => {
       this.user = user;
-      this.userId = user.uid;
+      this.userId = user?.uid;
     });
     this.voteScore =
       this.comment.upVotedUsers.length - this.comment.downVotedUsers.length;
     this.upVote = this.comment.upVotedUsers.includes(this.userId);
     this.downVote = this.comment.downVotedUsers.includes(this.userId);
-    // console.log(this.comment);
-    // console.log(this.post);
-    // console.log(this.postId);
   }
 
   onOpenEditPopup() {
@@ -47,9 +44,13 @@ export class CommentItemComponent {
     this.deleteCommentEvent.emit(this.comment.commentId);
   }
 
-  //
+  // Vote Logics
 
   async onUpVote() {
+    if (!this.user) {
+      this.onOpenLoginPopup.emit(this.comment.commentId);
+      return;
+    }
     if (this.updateInProgress) {
       return;
     }
@@ -128,6 +129,10 @@ export class CommentItemComponent {
   }
 
   async onDownVote() {
+    if (!this.user) {
+      this.onOpenLoginPopup.emit(this.comment.commentId);
+      return;
+    }
     if (this.updateInProgress) {
       return;
     }

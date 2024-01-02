@@ -18,6 +18,7 @@ export class PostDetailComponent {
   commentInput: string = '';
   isShowComment: boolean;
   showEditCommentPopup: boolean = false;
+  isOpenLoginPopup: boolean = false;
   editCommentInput: string = '';
   selectedCommentToEdit: any;
 
@@ -116,30 +117,39 @@ export class PostDetailComponent {
       this.errText = '';
     }
 
-    // Find the index of the selected comment in the comments array
     const index = this.post.comments.indexOf(this.selectedCommentToEdit);
 
-    // Update the comment with the edited text and new edited timestamp
     this.selectedCommentToEdit.commentText = this.editCommentInput;
     this.selectedCommentToEdit.editedAt = Date.now();
 
-    // Create a copy of the comments array with the updated comment
     const updatedCommentsData = [...this.post.comments];
     updatedCommentsData[index] = this.selectedCommentToEdit;
 
-    // Update the post object with the modified comments array
     const updatedPost = {
       ...this.post,
       comments: updatedCommentsData,
     };
 
-    // Update the post in the database or wherever you are storing it
-    // Assuming you have a function updateData to update the post
     updateData('post', this.postId, updatedPost);
 
-    // Reset the state after editing
     this.showEditCommentPopup = false;
     this.editCommentInput = '';
     this.selectedCommentToEdit = undefined;
+  }
+
+  onCloseLoginPopup() {
+    this.isOpenLoginPopup = false;
+  }
+  onOpenLoginPopup() {
+    this.isOpenLoginPopup = true;
+  }
+  async onUserLogin(): Promise<void> {
+    try {
+      await this.auth.login();
+      this.isOpenLoginPopup = false;
+      await this.loadPost();
+    } catch (error) {
+      console.error('Login failed', error);
+    }
   }
 }

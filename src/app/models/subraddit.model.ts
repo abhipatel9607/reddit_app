@@ -1,5 +1,3 @@
-import { Timestamp } from 'firebase/firestore';
-
 export interface SubredditType {
   name: string;
   userId: string;
@@ -10,6 +8,6 @@ export interface SubredditType {
 export interface SubredditTypeDB {
   name: string;
   userId: string;
-  createdAt: Timestamp;
+  createdAt: number;
   subredditId: string;
 }

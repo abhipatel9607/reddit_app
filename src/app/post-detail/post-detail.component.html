@@ -1,4 +1,7 @@
-<div class="post-detail-section" [ngClass]="{ blur: showEditCommentPopup }">
+<div
+  class="post-detail-section"
+  [ngClass]="{ blur: showEditCommentPopup || isOpenLoginPopup }"
+>
   <div class="post-detail-post" *ngIf="post">
     <div *ngIf="post">
       <app-post [post]="post"></app-post>
@@ -36,6 +39,7 @@
           [postId]="postId"
           (openEditPopupCommentEvent)="handleOpenEditCommentPopup($event)"
           (deleteCommentEvent)="handleDeleteComment($event)"
+          (onOpenLoginPopup)="onOpenLoginPopup()"
         ></comment-item>
       </div>
     </div>
@@ -73,4 +77,29 @@
   </div>
 
   <i class="x-icon bi bi-x-lg" (click)="onClosePopup()"></i>
+</div>
+
+<div class="login_popup" *ngIf="isOpenLoginPopup">
+  <p>Login required for this Action</p>
+  <div class="cta-btn-box">
+    <div>
+      <button
+        class="cta-btn cta-login btn-sm"
+        placeholder="Enter email"
+        (click)="onUserLogin()"
+      >
+        LOGIN
+      </button>
+      <button
+        class="cta-btn btn-sm"
+        placeholder="Enter email"
+        (click)="onCloseLoginPopup()"
+      >
+        CANCEL
+      </button>
+    </div>
+    <p class="text-red">{{ errText }}</p>
+  </div>
+
+  <i class="x-icon bi bi-x-lg" (click)="onCloseLoginPopup()"></i>
 </div>
