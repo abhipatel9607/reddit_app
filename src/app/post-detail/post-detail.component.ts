@@ -82,7 +82,7 @@ export class PostDetailComponent {
     this.loadPost();
   }
 
-  async oneDeleteComment(commentId: string) {
+  async handleDeleteComment(commentId: string) {
     const dataToBeUpdate = {
       comments: this.post.comments.filter(
         (comment: any) => comment.commentId !== commentId
@@ -92,7 +92,7 @@ export class PostDetailComponent {
     this.loadPost();
   }
 
-  onOpenEditPopup(commentData: any) {
+  handleOpenEditCommentPopup(commentData: any) {
     this.errText = '';
     this.showEditCommentPopup = true;
     this.editCommentInput = commentData.commentText;

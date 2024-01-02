@@ -46,9 +46,9 @@
   </div>
   <ng-container *ngIf="!user; else userDetails">
     <div class="auth-context">
-      <div class="login-box btn">
+      <div class="login-box btn" (click)="userLogin()">
         <i class="bi bi-person-fill"></i>
-        <button type="button" (click)="userLogin()">LOGIN</button>
+        <button type="button">LOGIN</button>
       </div>
     </div>
   </ng-container>

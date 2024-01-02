@@ -20,6 +20,7 @@ import {
 import { CreatePostPopupComponent } from './create-post-popup/create-post-popup.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { CommentItemComponent } from './post-detail/comment-item/comment-item.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     CreatePostPopupComponent,
     PostDetailComponent,
     TimeAgoPipe,
+    CommentItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -53,11 +53,6 @@ p {
   text-wrap: wrap;
 }
 
-.new-comment-input:focus {
-  border: 1px solid gray;
-  padding: 2px;
-}
-
 .btn {
   align-self: center;
   margin-left: 8px;
@@ -68,117 +63,13 @@ p {
   line-height: 1.4;
 }
 
-hr {
-  margin: 0 0 8px 0;
-  color: inherit;
-  border: 0;
-  border-top: var(--bs-border-width) solid;
-  opacity: 0.25;
-}
-
-.modify-actions-btn span {
-  font-size: 12px;
-  margin-right: 8px;
-}
-
-.comment-timeStamp,
-.comment-timeStamp-badge {
-  font-size: 12px;
-  color: gray;
-}
-
-.comment-timeStamp-badge {
-  padding: 2px 4px;
-  background-color: rgb(241, 241, 241);
-  border-radius: 4px;
-  font-size: 11px !important;
-}
-
-/* Post Content */
-
-.post-box {
-  width: 100%;
-  background-color: #fff;
-  border-radius: 4px;
-  padding: 0 16px;
-  display: flex;
-}
-
-.vote-container {
-  width: 44px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background-color: rgb(216, 216, 216);
-  padding: 16px 0;
-}
-.vote-icon {
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.vote-icon.active {
-  color: #1470f7;
-}
-
-.post-container {
-  padding: 16px;
-  width: 100%;
-}
-
-.post-header-box {
-  display: flex;
-  gap: 24px;
-}
-
-.subreddit-heading {
-  padding-right: 8px;
-  font-size: 18px;
-}
-
-.light-gray {
-  color: rgb(114, 114, 114);
-}
-
-.post-header-box h5,
-.post-header-box p {
+.text-red {
+  color: red !important;
   margin-bottom: 0;
+  width: 70%;
+  line-height: normal;
+  font-size: 14px;
 }
-
-.post-title {
-  font-size: 22px;
-  margin-bottom: 16px;
-}
-.post-text {
-  line-height: 1.6;
-  color: rgb(94, 94, 94);
-  margin-bottom: 20px;
-}
-
-.comment-container {
-  margin-top: 10px;
-  display: flex;
-  text-align: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.comment-icon {
-  font-size: 20px;
-}
-
-.post-img {
-  max-width: 100%;
-  border-radius: 4px;
-  margin-bottom: 4px;
-}
-
-.modify-btn {
-  cursor: pointer;
-}
-
-/* Update Comment Popup */
 
 .create-subraddit-popup-box {
   position: fixed;
@@ -207,22 +98,6 @@ hr {
   text-wrap: wrap;
 }
 
-.name {
-  margin-bottom: 4px;
-}
-
-.text-red {
-  color: red !important;
-  margin-bottom: 0;
-  width: 70%;
-  line-height: normal;
-  font-size: 14px;
-}
-
-.create-subraddit-popup-box input {
-  border: 1px solid gray;
-}
-
 .x-icon {
   position: absolute;
   top: 8px;
@@ -246,24 +121,11 @@ hr {
   cursor: pointer;
 }
 
-.btn-err-box button:active {
-  background-color: #ff4500;
-  color: #ffffff;
-}
-
 .text-red {
   color: red !important;
   margin-bottom: 0;
 }
 
-.dropdownLevel-box {
-  width: 150px;
-}
-
 .blur {
   opacity: 0.3;
-}
-
-.create-comment-errText {
-  margin-left: 60px;
 }

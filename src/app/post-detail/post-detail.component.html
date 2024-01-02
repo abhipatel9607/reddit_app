@@ -30,38 +30,13 @@
       </div>
       <!-- Show Existing Comment -->
       <div class="comment-item" *ngFor="let comment of post?.comments">
-        <div class="comment-section">
-          <div class="create-new-comment-section">
-            <img class="img" [src]="comment.authorImg" alt="Author Img" />
-            <div class="comment-flexitem-2">
-              <p>{{ comment.author }}</p>
-              <hr />
-              <p class="comment-text">{{ comment.commentText }}</p>
-              <div class="modify-actions-btn">
-                <span
-                  class="modify-btn"
-                  (click)="onOpenEditPopup(comment)"
-                  *ngIf="comment.authorUserId === user?.uid"
-                  >Edit</span
-                >
-                <span
-                  class="modify-btn"
-                  (click)="oneDeleteComment(comment.commentId)"
-                  *ngIf="comment.authorUserId === user?.uid"
-                  >Delete</span
-                >
-                <span
-                  class="comment-timeStamp-badge"
-                  *ngIf="comment.createdAt !== comment.editedAt"
-                  >Edited</span
-                >
-                <span class="comment-timeStamp"
-                  >- {{ comment.createdAt | timeAgo }}</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
+        <comment-item
+          [comment]="comment"
+          [post]="post"
+          [postId]="postId"
+          (openEditPopupCommentEvent)="handleOpenEditCommentPopup($event)"
+          (deleteCommentEvent)="handleDeleteComment($event)"
+        ></comment-item>
       </div>
     </div>
   </div>
