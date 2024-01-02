@@ -5,7 +5,7 @@
     </div>
 
     <div *ngIf="isShowComment" class="c-section">
-      <div class="comment-section-parent">
+      <div class="comment-section-parent" *ngIf="user">
         <div class="comment-section">
           <div class="create-new-comment-section">
             <img class="img" [src]="user.photoURL" alt="" />
@@ -41,13 +41,13 @@
                 <span
                   class="modify-btn"
                   (click)="onOpenEditPopup(comment)"
-                  *ngIf="comment.authorUserId === user.uid"
+                  *ngIf="comment.authorUserId === user?.uid"
                   >Edit</span
                 >
                 <span
                   class="modify-btn"
                   (click)="oneDeleteComment(comment.commentId)"
-                  *ngIf="comment.authorUserId === user.uid"
+                  *ngIf="comment.authorUserId === user?.uid"
                   >Delete</span
                 >
                 <span
